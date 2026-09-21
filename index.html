@@ -1,0 +1,2919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0d0e11">
+<title>T.L. Hanna Tennis</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 72%22 role=%22img%22 aria-label=%22TLH%22%3E%0A  %3Cdefs%3E%0A    %3ClinearGradient id=%22lg-gold%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%0A      %3Cstop offset=%220%22 stop-color=%22%23ffe58a%22/%3E%0A      %3Cstop offset=%220.5%22 stop-color=%22%23e9b930%22/%3E%0A      %3Cstop offset=%221%22 stop-color=%22%23b8860f%22/%3E%0A    %3C/linearGradient%3E%0A    %3ClinearGradient id=%22lg-plate%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22%3E%0A      %3Cstop offset=%220%22 stop-color=%22%231b1b1f%22/%3E%0A      %3Cstop offset=%221%22 stop-color=%22%23050506%22/%3E%0A    %3C/linearGradient%3E%0A  %3C/defs%3E%0A  %3Cpolygon points=%2215,2 118,2 118,57 105,70 2,70 2,15%22 fill=%22url(%23lg-plate)%22 stroke=%22url(%23lg-gold)%22 stroke-width=%223%22 stroke-linejoin=%22round%22/%3E%0A  %3Cpolygon points=%2217,7 113,7 113,55 103,65 7,65 7,17%22 fill=%22none%22 stroke=%22%23e9b930%22 stroke-opacity=%220.35%22 stroke-width=%221%22/%3E%0A  %3Cg transform=%22translate(22 12) scale(0.9) skewX(-12)%22 fill=%22url(%23lg-gold)%22%3E%0A    %3Cpath d=%22M0 0H31V6L28 9H20.5V34H10.5V9H3L0 6Z%22/%3E%0A    %3Cpath d=%22M37 0H47V25H60V34H37Z%22/%3E%0A    %3Cpath d=%22M66 0H76V12.5H87V0H97V34H87V22H76V34H66Z%22/%3E%0A  %3C/g%3E%0A  %3Cpath d=%22M20 53.5H95L92 57.5H16Z%22 fill=%22url(%23lg-gold)%22/%3E%0A  %3Ccircle cx=%22102%22 cy=%2255.5%22 r=%224.2%22 fill=%22%23e9b930%22/%3E%0A  %3Cpath d=%22M99.3 52.9C101.2 54.3 101.2 56.7 99.3 58.1M104.7 52.9C102.8 54.3 102.8 56.7 104.7 58.1%22 fill=%22none%22 stroke=%22%230a0a0b%22 stroke-width=%220.9%22 stroke-linecap=%22round%22/%3E%0A%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+  /* =====================================================================
+     T.L. Hanna Tennis. Design system.
+     Night court: blue-black surfaces, chalk text, trophy gold for TL Hanna,
+     hard-court blue for the opponent. Numerals borrow the slant of the logo.
+     ===================================================================== */
+  :root {
+    --bg: #090c10;
+    --surface: #111820;
+    --surface-2: #17212b;
+    --surface-3: #202c38;
+    --line: #2a3644;
+    --line-soft: #1e2933;
+    --chalk: rgba(238, 234, 224, 0.11);
+    --text: #eeeae0;
+    --text-2: #b4b9c1;
+    --text-3: #808a95;
+    --gold: #e8b93a;
+    --gold-strong: #f6d160;
+    --gold-deep: #b98a14;
+    --gold-ink: #1a1300;
+    --gold-dim: rgba(232, 185, 58, 0.14);
+    --blue: #5c9dff;
+    --blue-deep: #3b78d6;
+    --blue-ink: #061630;
+    --blue-dim: rgba(92, 157, 255, 0.15);
+    --green: #3fc28a;
+    --red: #ef5f57;
+    --amber: #f2a24b;
+    --r-lg: 18px;
+    --r: 14px;
+    --r-sm: 10px;
+    --board-shadow: 0 18px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    --font: "Barlow", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-num: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", "Barlow", sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; height: 100vh; height: 100dvh; display: flex; flex-direction: column;
+    background: var(--bg); color: var(--text); font-family: var(--font); font-size: 15px; line-height: 1.4;
+    overflow: hidden; -webkit-tap-highlight-color: transparent; -webkit-user-select: none; user-select: none;
+  }
+  /* A faint court behind everything, and a soft stadium light above it. */
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.055;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 780' fill='none' stroke='%23e8b93a' stroke-width='2.4'%3E%3Crect x='2' y='2' width='356' height='776'/%3E%3Cpath d='M47 2v776M313 2v776M47 180h266M47 600h266M180 180v420M180 2v14M180 764v14'/%3E%3C/svg%3E") center 40px / auto 112% no-repeat;
+  }
+  body::after {
+    content: ""; position: fixed; left: 50%; top: -220px; width: 1000px; height: 460px; transform: translateX(-50%);
+    z-index: 0; pointer-events: none; background: radial-gradient(closest-side, rgba(232, 185, 58, 0.10), transparent);
+  }
+  input, textarea { -webkit-user-select: text; user-select: text; }
+  button { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--gold-strong); outline-offset: 2px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .icon { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ---------- Header ---------- */
+  .app-header {
+    position: relative; flex: none; z-index: 20; display: flex; align-items: center; gap: 12px;
+    padding: max(10px, env(safe-area-inset-top)) 16px 10px;
+    background: rgba(9, 12, 16, 0.86); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--line);
+  }
+  .app-header::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: linear-gradient(90deg, transparent, rgba(232, 185, 58, 0.6), transparent); }
+  .brand { display: flex; align-items: center; gap: 12px; min-width: 0; flex: 1; }
+  .logo { width: 56px; height: 34px; flex: none; display: block; filter: drop-shadow(0 3px 10px rgba(232, 185, 58, 0.22)); }
+  .logo svg { width: 100%; height: 100%; display: block; }
+  .brand-text { min-width: 0; }
+  .brand-title { font-family: var(--font-num); font-style: italic; font-weight: 700; font-size: 22px; letter-spacing: 0.01em; line-height: 1.05; white-space: nowrap; }
+  .save-status { display: flex; align-items: center; gap: 6px; margin-top: 2px; font-size: 12px; color: var(--text-3); white-space: nowrap; }
+  .save-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px rgba(63, 194, 138, 0.7); flex: none; }
+  .save-status.is-error { color: var(--red); }
+  .save-status.is-error .save-dot { background: var(--red); box-shadow: none; }
+
+  /* ---------- Layout ---------- */
+  .app-content { position: relative; z-index: 1; flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 18px 16px calc(112px + env(safe-area-inset-bottom)); }
+  .wrap { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+  .tab-panel { display: none; flex-direction: column; gap: 16px; }
+  .tab-panel.active { display: flex; animation: fade 0.2s ease-out; }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+  .stack { display: flex; flex-direction: column; gap: 16px; }
+
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035); }
+  .card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+  .card-title { margin: 0; font-family: var(--font-num); font-weight: 700; font-size: 25px; line-height: 1.1; letter-spacing: 0.005em; }
+  .card-sub { margin: 5px 0 14px; color: var(--text-2); font-size: 13.5px; }
+  .card-head .card-sub { margin: 0; }
+  .card-head .card-title { flex: 1; min-width: 0; font-size: 22px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .card-head .btn { flex: none; white-space: nowrap; }
+  /* The main working card gets a gold top edge. Housekeeping cards recede. */
+  #tab-tracker > .card:nth-child(1) { border-top: 2px solid var(--gold); }
+  #log-card, #match-actions { background: transparent; box-shadow: none; border-color: var(--line-soft); }
+  .serving-note { display: inline-flex; align-items: center; gap: 6px; min-width: 0; font-size: 13px; color: var(--text-2); }
+  .serving-note strong { max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text); font-weight: 600; }
+  .serving-note .icon { width: 16px; height: 16px; color: var(--gold-strong); }
+
+  /* ---------- Scoreboard ---------- */
+  .board { position: relative; overflow: hidden; background: linear-gradient(180deg, #141d27, #0d141b); border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--board-shadow); }
+  .board-head, .board-row { display: grid; grid-template-columns: minmax(0, 1fr) 48px 48px 78px; align-items: center; column-gap: 8px; padding: 0 16px 0 22px; }
+  .board-head { height: 34px; font-size: 12.5px; font-weight: 600; color: var(--text-3); text-align: center; border-bottom: 1px solid var(--chalk); }
+  .board-head span:first-child { text-align: left; }
+  .board-row { position: relative; min-height: 84px; border-bottom: 1px solid var(--chalk); --team: var(--text-3); --glow: transparent; }
+  .board-row::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: linear-gradient(180deg, var(--team), var(--team-deep, var(--team))); }
+  .board-row.t1 { --team: var(--gold); --team-deep: var(--gold-deep); --glow: rgba(232, 185, 58, 0.28); }
+  .board-row.t2 { --team: var(--blue); --team-deep: var(--blue-deep); --glow: rgba(92, 157, 255, 0.28); }
+  .board-names { display: flex; flex-direction: column; gap: 3px; min-width: 0; padding: 10px 0; }
+  .pl { display: flex; align-items: center; gap: 8px; min-width: 0; font-weight: 600; font-size: 18px; }
+  .pl .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .board-row.winner .nm { color: var(--team); }
+  .serve-ball { width: 17px; height: 17px; color: var(--gold-strong); fill: rgba(246, 209, 96, 0.22); opacity: 0; }
+  .serve-ball.on { opacity: 1; filter: drop-shadow(0 0 6px rgba(246, 209, 96, 0.7)); }
+  .board-num { font-family: var(--font-num); font-style: italic; font-weight: 700; font-size: 42px; line-height: 1; text-align: center; font-variant-numeric: tabular-nums; }
+  .board-num.dim { color: var(--text-3); }
+  .board-pts {
+    font-family: var(--font-num); font-style: italic; font-weight: 700; font-size: 44px; line-height: 1; text-align: center; font-variant-numeric: tabular-nums;
+    padding: 9px 0; border-radius: 12px; color: var(--team); text-shadow: 0 0 22px var(--glow);
+    background: linear-gradient(180deg, #1d2935, #141d27); border: 1px solid var(--line); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+  .board-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 11px 16px 11px 22px; font-size: 13px; color: var(--text-3); }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .chip { font-family: var(--font-num); font-style: italic; font-weight: 700; font-size: 17px; padding: 1px 10px; border-radius: 6px; background: var(--surface-3); color: var(--text); }
+  .badge { display: inline-block; padding: 3px 11px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; background: var(--gold-dim); color: var(--gold-strong); }
+  .badge.tb { background: rgba(239, 95, 87, 0.16); color: #ff9088; }
+  .badge.final { background: rgba(63, 194, 138, 0.16); color: var(--green); }
+  .badge.warn { background: rgba(242, 162, 75, 0.16); color: var(--amber); }
+  .badge.muted { background: var(--surface-3); color: var(--text-2); }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    min-height: 48px; padding: 0 18px; border: 1px solid transparent; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    font-weight: 600; font-size: 15px; cursor: pointer; touch-action: manipulation; transition: background 0.15s, opacity 0.15s, transform 0.06s, box-shadow 0.15s;
+  }
+  .btn:active:not(:disabled) { transform: scale(0.98); }
+  .btn:disabled { cursor: not-allowed; opacity: 0.4; }
+  .btn-primary { background: linear-gradient(180deg, #f3cb58, #dcac2b); color: var(--gold-ink); box-shadow: 0 8px 20px rgba(232, 185, 58, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.4); }
+  .btn-primary:hover:not(:disabled) { background: linear-gradient(180deg, #f8d56e, #e3b433); }
+  .btn-secondary { background: var(--surface-3); color: var(--text); border-color: var(--line); }
+  .btn-secondary:hover:not(:disabled) { background: #283644; }
+  .btn-ghost { background: transparent; color: var(--text-2); border-color: var(--line); }
+  .btn-ghost:hover:not(:disabled) { background: rgba(255, 255, 255, 0.03); }
+  .btn-danger { background: transparent; color: var(--red); border-color: rgba(239, 95, 87, 0.5); }
+  .btn-danger:hover:not(:disabled) { background: rgba(239, 95, 87, 0.1); }
+  .btn-sm { min-height: 38px; padding: 0 13px; font-size: 13.5px; border-radius: 10px; }
+  .btn-block { width: 100%; margin-top: 14px; }
+  .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .btn-grid .span-2 { grid-column: span 2; }
+  .btn-save { min-height: 38px; padding: 0 12px; border-radius: 10px; background: var(--gold-dim); color: var(--gold-strong); border-color: rgba(232, 185, 58, 0.4); box-shadow: none; }
+  .btn-save.is-saved { background: rgba(63, 194, 138, 0.14); color: var(--green); border-color: rgba(63, 194, 138, 0.4); }
+  .icon-btn { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 10px; border: 1px solid transparent; background: transparent; color: var(--text-3); cursor: pointer; }
+  .icon-btn:hover:not(:disabled) { color: var(--text); border-color: var(--line); }
+  .icon-btn.danger:hover { color: var(--red); }
+  .icon-btn:disabled { opacity: 0.28; cursor: default; }
+
+  /* ---------- Record a point ---------- */
+  .picker-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+  .lbl { font-size: 14px; font-weight: 600; }
+  .lbl small { display: block; font-weight: 400; font-size: 12px; color: var(--text-3); }
+  .stepper { display: flex; align-items: center; gap: 6px; }
+  .stepper .step { min-height: 46px; width: 46px; padding: 0; border-radius: 12px; }
+  .shots-input {
+    width: 72px; height: 46px; text-align: center; font-family: var(--font-num); font-style: italic; font-weight: 700; font-size: 30px; color: var(--text);
+    background: #0c1218; border: 1px solid var(--line); border-radius: 12px; -moz-appearance: textfield; appearance: textfield;
+  }
+  .shots-input::-webkit-outer-spin-button, .shots-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .shots-input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-dim); }
+  .chip-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  .shot-chip {
+    min-height: 50px; padding: 2px 0; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; touch-action: manipulation;
+    border-radius: 12px; border: 1px solid var(--line); background: var(--surface-2); transition: background 0.12s, border-color 0.12s, box-shadow 0.12s;
+  }
+  .shot-chip:hover:not(:disabled) { border-color: #3a4a5c; }
+  .shot-chip .n { font-family: var(--font-num); font-style: italic; font-weight: 700; font-size: 25px; line-height: 1; }
+  .shot-chip .c { min-height: 11px; font-size: 10px; line-height: 1.1; color: var(--text-3); }
+  .shot-chip[aria-pressed="true"] { border-color: var(--gold); background: var(--gold-dim); box-shadow: 0 0 0 1px var(--gold), 0 6px 18px rgba(232, 185, 58, 0.16); }
+  .shot-chip[aria-pressed="true"] .n { color: var(--gold-strong); }
+  .shot-chip[aria-pressed="true"] .c { color: var(--gold-strong); }
+  .shot-chip:disabled { opacity: 0.4; cursor: not-allowed; }
+  .rule { display: flex; gap: 10px; align-items: flex-start; margin: 14px 0; padding: 11px 13px; border-radius: 12px; border-left: 3px solid var(--line); background: var(--surface-2); font-size: 13.5px; line-height: 1.45; color: var(--text-2); }
+  .rule strong { color: var(--text); font-weight: 600; }
+  .rule.t1 { border-left-color: var(--gold); }
+  .rule.t2 { border-left-color: var(--blue); }
+  .winner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .win-btn { position: relative; min-height: 80px; flex-direction: column; align-items: flex-start; justify-content: center; gap: 2px; padding: 10px 15px; text-align: left; border-radius: 16px; }
+  .win-btn .w-name { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 18px; font-weight: 700; }
+  .win-btn .w-role { font-size: 12px; font-weight: 500; opacity: 0.75; }
+  .win-btn.t1 { background: linear-gradient(180deg, #f3cb58, #d8a726); color: var(--gold-ink); box-shadow: 0 10px 24px rgba(232, 185, 58, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.4); }
+  .win-btn.t2 { background: linear-gradient(180deg, #74acff, #4a8be8); color: var(--blue-ink); box-shadow: 0 10px 24px rgba(92, 157, 255, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.35); }
+  .win-btn:disabled { background: var(--surface-2); color: var(--text-3); border: 1px dashed var(--line); box-shadow: none; opacity: 1; }
+  .win-btn .lock { position: absolute; top: 12px; right: 12px; width: 16px; height: 16px; display: none; }
+  .win-btn:disabled .lock { display: block; }
+  .banner { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; padding: 12px; border-radius: 12px; background: rgba(63, 194, 138, 0.1); border: 1px solid rgba(63, 194, 138, 0.3); font-size: 13px; color: var(--text-2); }
+  .banner .icon { color: var(--green); }
+  .banner div { flex: 1; min-width: 0; }
+  .banner strong { display: block; color: var(--text); font-size: 14px; }
+  .banner.warn { background: rgba(242, 162, 75, 0.1); border-color: rgba(242, 162, 75, 0.3); }
+  .banner.warn .icon { color: var(--amber); }
+  .actions-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+
+  /* ---------- Point log ---------- */
+  .log { list-style: none; margin: 0; padding: 0; max-height: 420px; overflow-y: auto; }
+  .log-item { display: grid; grid-template-columns: 36px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 11px 0; border-top: 1px solid var(--line-soft); }
+  .log-item:first-child { border-top: 0; }
+  .log-n { font-family: var(--font-num); font-style: italic; font-weight: 700; font-size: 20px; color: var(--text-3); }
+  .log-win { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-weight: 600; }
+  .log-win .who { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .log-win.t1 .who { color: var(--gold-strong); }
+  .log-win.t2 .who { color: var(--blue); }
+  .log-win.un .who { color: var(--amber); }
+  .tag { padding: 1px 9px; border-radius: 999px; font-size: 11px; font-weight: 600; white-space: nowrap; background: var(--surface-3); color: var(--text-2); }
+  .tag.df { background: rgba(242, 162, 75, 0.16); color: var(--amber); }
+  .log-meta { margin-top: 1px; font-size: 12px; color: var(--text-3); }
+  .empty { padding: 26px 10px; text-align: center; color: var(--text-3); font-size: 14px; }
+  .empty .art { display: block; width: 92px; height: auto; margin: 0 auto 10px; opacity: 0.9; }
+  .empty p { margin: 0 auto; max-width: 34ch; line-height: 1.5; }
+
+  /* ---------- Momentum chart ---------- */
+  #chart svg { display: block; width: 100%; height: auto; touch-action: pan-y; cursor: crosshair; }
+  .c-grid { stroke: var(--line-soft); stroke-width: 1; }
+  .c-grid.zero { stroke: #3d4b5b; stroke-dasharray: 4 4; }
+  .c-tick { fill: var(--text-3); font-size: 11px; font-family: var(--font); }
+  .c-cap { font-size: 12px; font-weight: 600; font-family: var(--font); }
+  .c-cap.t1 { fill: var(--gold-strong); }
+  .c-cap.t2 { fill: var(--blue); }
+  .c-line { fill: none; stroke: var(--text); stroke-width: 2.2; stroke-linejoin: round; stroke-linecap: round; }
+  .c-area-up { fill: rgba(232, 185, 58, 0.24); }
+  .c-area-dn { fill: rgba(92, 157, 255, 0.24); }
+  .m-t1 { fill: var(--gold); }
+  .m-t2 { fill: var(--blue); }
+  .m-game { stroke: var(--text); stroke-width: 2; }
+  .m-df { fill: var(--amber); }
+  .m-un { fill: var(--bg); stroke: var(--text-3); stroke-width: 1.5; }
+  .c-sel { stroke: var(--text-3); stroke-width: 1; stroke-dasharray: 3 3; }
+  .c-selc { fill: var(--text); stroke: var(--bg); stroke-width: 2; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 12px; font-size: 12px; color: var(--text-2); }
+  .legend i { display: inline-block; width: 10px; height: 10px; margin-right: 6px; border-radius: 50%; vertical-align: -1px; box-sizing: border-box; }
+  .legend i.ring { border: 2px solid var(--text); background: var(--surface-3); }
+  .legend i.df { background: var(--amber); }
+  .legend i.un { border: 1.5px solid var(--text-3); }
+  .detail { margin-top: 12px; padding: 13px; border-radius: 12px; background: var(--surface-2); font-size: 14px; }
+  .detail-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+  .detail-top strong { font-size: 15px; }
+
+  /* ---------- Match stats ---------- */
+  .sum-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .sum-head { font-family: var(--font-num); font-weight: 700; font-size: 26px; line-height: 1.15; }
+  .sum-detail { margin-top: 2px; font-family: var(--font-num); font-style: italic; font-size: 22px; font-weight: 600; color: var(--text-2); }
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px; }
+  .kpi { padding: 13px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--line-soft); }
+  .kpi-label { font-size: 12px; color: var(--text-3); }
+  .kpi-value { margin-top: 2px; font-family: var(--font-num); font-style: italic; font-size: 34px; font-weight: 700; line-height: 1.1; }
+  .kpi-value small { margin-left: 3px; font-family: var(--font); font-style: normal; font-size: 12px; font-weight: 500; color: var(--text-3); }
+  .cmp-legend { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 4px; font-weight: 600; font-size: 14px; }
+  .cmp-legend span { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .cmp-legend span b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+  .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; flex: none; }
+  .dot.t1 { background: var(--gold); box-shadow: 0 0 8px rgba(232, 185, 58, 0.5); }
+  .dot.t2 { background: var(--blue); box-shadow: 0 0 8px rgba(92, 157, 255, 0.5); }
+  .group-title { margin: 18px 0 2px; font-size: 13.5px; font-weight: 600; color: var(--text-2); }
+  .cmp { padding: 11px 0; border-top: 1px solid var(--line-soft); }
+  .cmp-top { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: baseline; gap: 8px; }
+  .cmp-label { font-size: 13px; color: var(--text-2); text-align: center; white-space: nowrap; }
+  .cmp-val { font-family: var(--font-num); font-style: italic; font-size: 28px; font-weight: 700; line-height: 1.1; }
+  .cmp-val.r { text-align: right; }
+  .cmp-val small { margin: 0 6px; font-family: var(--font); font-style: normal; font-size: 12px; font-weight: 500; color: var(--text-3); }
+  .bfly { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 8px; }
+  .bfly .half { display: flex; height: 8px; border-radius: 4px; overflow: hidden; background: var(--surface-3); }
+  .bfly .half.l { justify-content: flex-end; }
+  .fill { height: 100%; border-radius: 4px; transition: width 0.3s ease; }
+  .fill.t1 { background: linear-gradient(90deg, var(--gold-deep), var(--gold-strong)); }
+  .fill.t2 { background: linear-gradient(90deg, var(--blue), #8fbcff); }
+
+  /* ---------- Forms and settings ---------- */
+  .team-block { display: flex; flex-direction: column; gap: 10px; padding: 14px 0; border-top: 1px solid var(--line-soft); }
+  .team-block:first-of-type { border-top: 0; padding-top: 0; }
+  .team-block h3 { margin: 0; display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label { font-size: 13px; font-weight: 500; color: var(--text-2); }
+  .input { width: 100%; height: 48px; padding: 0 13px; border-radius: 12px; border: 1px solid var(--line); background: #0c1218; color: var(--text); font-family: inherit; font-size: 16px; transition: border-color 0.15s, box-shadow 0.15s; }
+  .input::placeholder { color: var(--text-3); }
+  .input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-dim); }
+  textarea.input { height: auto; min-height: 92px; padding: 11px 13px; line-height: 1.45; resize: vertical; }
+  select.input { appearance: none; -webkit-appearance: none; padding-right: 34px; background-image: linear-gradient(45deg, transparent 50%, var(--text-2) 50%), linear-gradient(135deg, var(--text-2) 50%, transparent 50%); background-position: calc(100% - 18px) 21px, calc(100% - 13px) 21px; background-size: 5px 5px; background-repeat: no-repeat; }
+  input[type="date"].input { color-scheme: dark; }
+  #setup[data-play="singles"] .only-doubles { display: none; }
+  .set-row { display: flex; flex-direction: column; gap: 8px; padding: 14px 0; border-top: 1px solid var(--line-soft); }
+  .set-row:first-of-type { border-top: 0; padding-top: 0; }
+  .set-row > .lbl { font-size: 14px; }
+  .hint { margin: 0; font-size: 12.5px; color: var(--text-3); }
+  .seg { display: flex; gap: 3px; padding: 4px; border-radius: 14px; background: #0c1218; border: 1px solid var(--line); }
+  .seg button { flex: 1; min-height: 42px; border: 0; border-radius: 10px; background: transparent; color: var(--text-2); font-weight: 600; font-size: 14px; cursor: pointer; transition: background 0.15s, color 0.15s; }
+  .seg button:hover { color: var(--text); }
+  .seg button[aria-checked="true"] { background: linear-gradient(180deg, #263443, #1d2937); color: var(--gold-strong); box-shadow: inset 0 0 0 1px var(--line), 0 4px 10px rgba(0, 0, 0, 0.3); }
+  .level-seg button[data-level="jv"][aria-checked="true"] { color: var(--blue); }
+  .level-seg .cnt { display: inline-block; min-width: 22px; margin-left: 6px; padding: 1px 7px; border-radius: 999px; background: var(--surface-3); color: var(--text-2); font-size: 12px; font-weight: 600; }
+  .level-seg button[aria-checked="true"] .cnt { background: var(--gold-dim); color: var(--gold-strong); }
+  .level-seg button[data-level="jv"][aria-checked="true"] .cnt { background: var(--blue-dim); color: var(--blue); }
+  .subnav button { font-size: 13.5px; }
+  .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .opt { min-height: 48px; padding: 0 13px; display: flex; align-items: center; gap: 8px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--line); color: var(--text); font-weight: 600; font-size: 14px; cursor: pointer; text-align: left; }
+  .opt span.nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .opt[aria-checked="true"] { border-color: var(--gold); background: var(--gold-dim); }
+  .opt:disabled { opacity: 0.5; cursor: not-allowed; }
+  .fmt-list { display: flex; flex-direction: column; gap: 8px; }
+  .fmt { display: flex; gap: 12px; align-items: flex-start; width: 100%; padding: 13px; border-radius: 14px; background: var(--surface-2); border: 1px solid var(--line); color: var(--text); cursor: pointer; font: inherit; text-align: left; }
+  .fmt .radio { width: 18px; height: 18px; margin-top: 2px; border-radius: 50%; border: 2px solid var(--text-3); flex: none; display: grid; place-items: center; }
+  .fmt[aria-checked="true"] { border-color: var(--gold); background: var(--gold-dim); }
+  .fmt[aria-checked="true"] .radio { border-color: var(--gold); }
+  .fmt[aria-checked="true"] .radio::after { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
+  .fmt-name { display: block; font-weight: 600; font-size: 15px; }
+  .fmt-desc { display: block; margin-top: 2px; font-size: 12.5px; line-height: 1.4; color: var(--text-2); }
+  .saved-item { display: flex; flex-direction: column; gap: 10px; padding: 14px 0; border-top: 1px solid var(--line-soft); }
+  .saved-item:first-child { border-top: 0; padding-top: 0; }
+  .saved-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .saved-title { font-weight: 600; }
+  .saved-meta { margin-top: 1px; font-size: 12px; color: var(--text-3); }
+  .saved-actions { display: flex; gap: 8px; }
+  .saved-actions .btn { flex: 1; }
+  .stack-sm { display: flex; flex-direction: column; gap: 14px; margin-top: 12px; }
+
+  /* ---------- Coaching ---------- */
+  .record-grid .board-row { min-height: 66px; }
+  .record-grid .board-num { font-size: 38px; }
+  .record-grid .board-pts { font-size: 30px; padding: 7px 0; }
+  .record-grid .board-names { padding: 8px 0; }
+  .rec-name { font-family: var(--font-num); font-weight: 700; font-size: 22px; line-height: 1.1; }
+  .rec-sub { font-size: 12px; color: var(--text-3); }
+  .record-grid .board-row.rg { --team: #7b8898; --team-deep: #56626f; --glow: transparent; }
+  .record-grid .board-row.rg .board-pts { color: var(--text-2); }
+  .form-dots { display: flex; gap: 5px; align-items: center; }
+  .form-dot { width: 24px; height: 24px; display: grid; place-items: center; border-radius: 50%; font-family: var(--font-num); font-style: italic; font-weight: 700; font-size: 14px; }
+  .form-dot.w { background: rgba(63, 194, 138, 0.18); color: var(--green); box-shadow: inset 0 0 0 1.5px rgba(63, 194, 138, 0.7); }
+  .form-dot.l { background: rgba(239, 95, 87, 0.16); color: #ff8d86; box-shadow: inset 0 0 0 1.5px rgba(239, 95, 87, 0.65); }
+  .new-form { display: flex; flex-direction: column; gap: 14px; margin-bottom: 10px; padding: 16px; border-radius: 14px; background: var(--surface-2); border: 1px solid var(--line); }
+  .dual-list { display: flex; flex-direction: column; }
+  .dual-row { position: relative; display: flex; align-items: center; gap: 12px; width: 100%; padding: 14px 4px 14px 16px; background: none; border: 0; border-top: 1px solid var(--line-soft); color: var(--text); text-align: left; cursor: pointer; transition: background 0.12s; --st: var(--text-3); }
+  .dual-row::before { content: ""; position: absolute; left: 0; top: 13px; bottom: 13px; width: 4px; border-radius: 2px; background: var(--st); }
+  .dual-row.win { --st: var(--green); }
+  .dual-row.loss { --st: var(--red); }
+  .dual-row:first-child { border-top: 0; }
+  .dual-row:hover { background: rgba(255, 255, 255, 0.025); }
+  .dual-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+  .dual-meta > span:first-child { white-space: nowrap; }
+  .tagchip { white-space: nowrap; }
+  .dual-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; font-size: 17px; }
+  .dual-meta { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--text-3); }
+  .tagchip { padding: 1px 9px; border-radius: 999px; font-size: 11.5px; font-weight: 600; background: var(--surface-3); color: var(--text-2); }
+  .tagchip.region { background: var(--blue-dim); color: var(--blue); }
+  .dual-res { display: flex; flex: none; flex-direction: column; align-items: flex-end; gap: 3px; }
+  .dual-score { text-align: right; font-family: var(--font-num); font-style: italic; font-weight: 700; font-size: 32px; line-height: 1; }
+  .dual-state { font-size: 12px; font-weight: 600; color: var(--text-3); }
+  .dual-row.win .dual-state { color: var(--green); }
+  .dual-row.loss .dual-state { color: #ff8d86; }
+  .dual-row.d1 .dual-state { color: var(--amber); }
+  .team-list { margin-top: 12px; }
+  .team-row { display: flex; align-items: center; gap: 12px; padding: 9px 0; border-top: 1px solid var(--line-soft); }
+  .team-row:first-child { border-top: 0; }
+  .team-av { flex: none; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: var(--surface-3); box-shadow: inset 0 0 0 1.5px rgba(92, 157, 255, 0.5); color: var(--blue); font-family: var(--font-num); font-style: italic; font-weight: 700; font-size: 15px; }
+  .team-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+  .team-rec { min-width: 48px; padding: 2px 10px; border-radius: 999px; background: var(--surface-3); text-align: center; font-family: var(--font-num); font-style: italic; font-weight: 700; font-size: 19px; color: var(--text-2); }
+  .add-row { display: flex; gap: 8px; }
+  .add-row .input { flex: 1; min-width: 0; }
+  .lu-row { display: flex; flex-direction: column; gap: 6px; padding: 11px 0; border-top: 1px solid var(--line-soft); }
+  .lu-row:first-of-type { border-top: 0; padding-top: 0; }
+  .lu-label { font-family: var(--font-num); font-size: 18px; font-weight: 700; }
+  .lu-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .dual-top { display: flex; justify-content: space-between; gap: 10px; }
+  .board-card { background: linear-gradient(180deg, #141d27, #0d141b); box-shadow: var(--board-shadow); border-radius: var(--r-lg); }
+  .dual-level { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 12px; font-size: 13px; color: var(--text-3); }
+  .dual-board { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px; text-align: center; }
+  .dual-team { min-width: 0; }
+  .dual-team .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 600; color: var(--text-2); }
+  .dual-team .pt { font-family: var(--font-num); font-style: italic; font-weight: 700; font-size: 84px; line-height: 1; }
+  .dual-team.tl .pt { color: var(--gold-strong); text-shadow: 0 0 30px rgba(232, 185, 58, 0.3); }
+  .dual-team.opp .pt { color: var(--blue); text-shadow: 0 0 30px rgba(92, 157, 255, 0.3); }
+  .dual-dash { font-family: var(--font-num); font-size: 34px; color: var(--text-3); }
+  .dual-status { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 12px; padding-top: 14px; border-top: 1px solid var(--chalk); font-size: 14px; color: var(--text-2); text-align: center; }
+  .lines-grid { display: flex; flex-direction: column; gap: 16px; }
+  .line-card { display: flex; flex-direction: column; gap: 12px; padding: 16px; background: var(--surface); border: 1px solid var(--line); border-left: 5px solid var(--line); border-radius: var(--r); }
+  .line-card.won { border-left-color: var(--gold); }
+  .line-card.lost { border-left-color: var(--blue); }
+  .line-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .line-title { margin: 0; font-family: var(--font-num); font-style: italic; font-size: 24px; font-weight: 700; }
+  .pl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .pl-col { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+  .pl-lbl { display: flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 600; color: var(--text-2); }
+  .pl-lbl span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .res-seg { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .res-btn { min-height: 48px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface-2); color: var(--text-2); font-weight: 600; font-size: 14px; cursor: pointer; transition: background 0.12s, border-color 0.12s; }
+  .res-btn:hover { border-color: #3a4a5c; }
+  .res-btn.tl[aria-pressed="true"] { background: linear-gradient(180deg, #f3cb58, #d8a726); border-color: var(--gold); color: var(--gold-ink); box-shadow: 0 6px 16px rgba(232, 185, 58, 0.2); }
+  .res-btn.opp[aria-pressed="true"] { background: linear-gradient(180deg, #74acff, #4a8be8); border-color: var(--blue); color: var(--blue-ink); box-shadow: 0 6px 16px rgba(92, 157, 255, 0.2); }
+  .roster-add { display: grid; grid-template-columns: minmax(0, 1fr) 100px auto; gap: 8px; }
+  .roster-add .btn { padding: 0 16px; }
+  .rp-list { margin-top: 12px; }
+  .rp-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-top: 1px solid var(--line-soft); }
+  .rp-row:first-child { border-top: 0; }
+  .rp-rank { flex: none; width: 20px; text-align: center; font-family: var(--font-num); font-style: italic; font-size: 19px; font-weight: 700; color: var(--text-3); }
+  .rp-av { flex: none; width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; background: linear-gradient(160deg, #f6d160, #c99417); color: var(--gold-ink); font-family: var(--font-num); font-style: italic; font-weight: 700; font-size: 18px; box-shadow: 0 0 0 2px rgba(232, 185, 58, 0.28); }
+  .rp-av.jv { background: linear-gradient(160deg, #82b4ff, #3f83e6); color: var(--blue-ink); box-shadow: 0 0 0 2px rgba(92, 157, 255, 0.3); }
+  .rp-info { flex: 1; min-width: 0; }
+  .rp-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 16.5px; font-weight: 600; }
+  .rp-meta { display: flex; align-items: center; gap: 8px; min-width: 0; margin-top: 3px; font-size: 12.5px; color: var(--text-3); flex-wrap: wrap; row-gap: 2px; }
+  .rp-meta > span { flex: none; white-space: nowrap; }
+  .rp-meta .note { flex: 0 1 auto; min-width: 0; white-space: normal; }
+  .rp-rec { padding: 0 8px; border-radius: 999px; background: var(--surface-3); color: var(--text-2); font-weight: 600; white-space: nowrap; }
+  .rp-tools { display: flex; flex: none; }
+  .rp-tools .icon-btn { width: 36px; height: 42px; }
+  .edit-form { display: flex; flex-direction: column; gap: 12px; margin: 8px 0; padding: 16px; border-radius: 14px; background: var(--surface-2); border: 1px solid var(--line); }
+
+  /* ---------- Navigation ---------- */
+  .tab-bar {
+    position: fixed; left: 12px; right: 12px; bottom: max(10px, env(safe-area-inset-bottom)); z-index: 30; max-width: 620px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; padding: 6px;
+    background: rgba(13, 19, 26, 0.88); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--line); border-radius: 24px; box-shadow: 0 16px 36px rgba(0, 0, 0, 0.55);
+  }
+  .tab { position: relative; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 8px 2px 6px; border: 0; border-radius: 18px; background: none; color: var(--text-3); font-size: 11px; font-weight: 600; cursor: pointer; transition: background 0.15s, color 0.15s; }
+  .tab .icon { width: 23px; height: 23px; }
+  .tab.active { color: var(--gold-strong); background: var(--gold-dim); box-shadow: inset 0 0 0 1px rgba(232, 185, 58, 0.28); }
+
+  /* ---------- Dialogs and toast ---------- */
+  .modal-overlay { position: fixed; inset: 0; z-index: 100; display: none; align-items: flex-end; justify-content: center; padding: 16px; padding-bottom: max(16px, env(safe-area-inset-bottom)); background: rgba(4, 6, 9, 0.76); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
+  .modal-overlay.open { display: flex; }
+  #dialog { z-index: 120; }
+  @media (min-width: 600px) { .modal-overlay { align-items: center; } }
+  .modal { width: 100%; max-width: 440px; max-height: 92dvh; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; padding: 22px; background: var(--surface); border: 1px solid var(--line); border-top: 2px solid var(--gold); border-radius: 20px; box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6); animation: rise 0.18s ease-out; }
+  @keyframes rise { from { transform: translateY(12px); opacity: 0; } to { transform: none; opacity: 1; } }
+  .modal h2 { margin: 0; font-family: var(--font-num); font-size: 26px; font-weight: 700; line-height: 1.1; }
+  .modal p { margin: 0; color: var(--text-2); font-size: 14.5px; }
+  .modal-actions { display: flex; flex-direction: column; gap: 8px; }
+  .modal-actions.row { flex-direction: row; }
+  .modal-actions.row .btn { flex: 1; }
+  .result-box { padding: 14px; border-radius: 14px; background: var(--surface-2); font-family: var(--font-num); font-style: italic; font-size: 26px; font-weight: 700; }
+  .toast {
+    position: fixed; left: 50%; top: calc(76px + env(safe-area-inset-top)); z-index: 130; max-width: calc(100% - 32px); padding: 11px 18px; border-radius: 999px; text-align: center;
+    background: #1b2531; border: 1px solid var(--line); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), inset 3px 0 0 var(--gold);
+    font-size: 14px; font-weight: 500; opacity: 0; transform: translate(-50%, -8px); pointer-events: none; transition: opacity 0.2s, transform 0.2s;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  /* ---------- Tutorials ---------- */
+  .tour { position: fixed; inset: 0; z-index: 200; }
+  .tour.no-spot { background: rgba(3, 5, 8, 0.82); }
+  .tour-spot { position: fixed; border-radius: 16px; pointer-events: none; box-shadow: 0 0 0 9999px rgba(3, 5, 8, 0.82), 0 0 0 2px var(--gold-strong), 0 0 28px rgba(232, 185, 58, 0.35); transition: left 0.2s, top 0.2s, width 0.2s, height 0.2s; }
+  .tour-card { position: fixed; left: 12px; right: 12px; max-width: 460px; margin: 0 auto; padding: 18px; display: flex; flex-direction: column; gap: 10px; border-radius: 20px; background: var(--surface); border: 1px solid var(--line); border-top: 2px solid var(--gold); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6); }
+  .tour-card[data-pos="bottom"] { bottom: calc(104px + env(safe-area-inset-bottom)); }
+  .tour-card[data-pos="top"] { top: calc(78px + env(safe-area-inset-top)); }
+  .tour-card[data-pos="center"] { top: 50%; transform: translateY(-50%); }
+  .tour-top { display: flex; align-items: center; justify-content: space-between; }
+  .tour-count { font-size: 12px; font-weight: 600; color: var(--text-3); }
+  .tour-skip { min-height: 36px; padding: 0 6px; background: none; border: 0; color: var(--text-2); font-size: 14px; font-weight: 600; cursor: pointer; }
+  .tour-card h3 { margin: 0; font-family: var(--font-num); font-size: 26px; font-weight: 700; line-height: 1.15; }
+  .tour-card p { margin: 0; font-size: 15px; line-height: 1.5; color: var(--text-2); }
+  .tour-dots { display: flex; gap: 6px; padding: 2px 0; }
+  .tour-dots i { width: 6px; height: 6px; border-radius: 3px; background: var(--surface-3); }
+  .tour-dots i.on { width: 18px; background: var(--gold-strong); }
+  .tour-nav { display: flex; gap: 10px; }
+  .tour-nav .btn { flex: 1; }
+  .tut-list { display: flex; flex-direction: column; }
+  .tut-row { display: flex; align-items: center; gap: 12px; padding: 13px 0; border-top: 1px solid var(--line-soft); }
+  .tut-row:first-child { border-top: 0; padding-top: 0; }
+  .tut-main { flex: 1; min-width: 0; }
+  .tut-name { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+  .tut-desc { font-size: 12.5px; color: var(--text-3); }
+  .switch-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 6px; padding-top: 14px; border-top: 1px solid var(--line-soft); font-size: 14px; font-weight: 600; cursor: pointer; }
+  .switch-row input { appearance: none; -webkit-appearance: none; position: relative; flex: none; width: 50px; height: 30px; border-radius: 15px; background: var(--surface-3); border: 1px solid var(--line); cursor: pointer; transition: background 0.15s; }
+  .switch-row input::after { content: ''; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%; background: var(--text-2); transition: transform 0.15s; }
+  .switch-row input:checked { background: var(--gold); border-color: var(--gold); }
+  .switch-row input:checked::after { transform: translateX(20px); background: var(--gold-ink); }
+  body.touring .app-content { padding-bottom: calc(80vh + env(safe-area-inset-bottom)); }
+  body[data-tab="coach"] #scoreboard, body[data-tab="coach"] #btn-save { display: none; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+  @media (max-width: 440px) {
+    .roster-add { grid-template-columns: minmax(0, 1fr) auto; }
+    .roster-add #rp-new-name { grid-column: 1 / -1; }
+  }
+  @media (max-width: 380px) {
+    .brand-title { font-size: 20px; }
+    .board-head, .board-row { grid-template-columns: minmax(0, 1fr) 42px 42px 68px; padding-left: 18px; padding-right: 12px; }
+    .board-num { font-size: 36px; }
+    .board-pts { font-size: 38px; }
+    .tab { font-size: 10.5px; }
+  }
+  @media (max-height: 700px) {
+    .tour-card { padding: 13px 15px; gap: 6px; }
+    .tour-card h3 { font-size: 21px; }
+    .tour-card p { font-size: 14px; line-height: 1.4; }
+    .tour-dots { display: none; }
+    .tour-card[data-pos="bottom"] { bottom: calc(98px + env(safe-area-inset-bottom)); }
+  }
+
+  /* ---------- Wider screens ---------- */
+  @media (min-width: 720px) {
+    .level-seg { align-self: flex-start; width: min(100%, 340px); }
+    .wrap { max-width: 720px; }
+    .app-content { padding-top: 24px; }
+  }
+  @media (min-width: 960px) {
+    /* Navigation moves under the header, and content opens up. */
+    .app-header { order: 0; padding-left: 28px; padding-right: 28px; }
+    .tab-bar { order: 1; position: static; left: auto; right: auto; bottom: auto; max-width: none; margin: 0; display: flex; justify-content: center; gap: 6px; padding: 10px 16px; background: rgba(9, 12, 16, 0.7); border: 0; border-bottom: 1px solid var(--line-soft); border-radius: 0; box-shadow: none; z-index: 25; }
+    .tab { flex-direction: row; gap: 9px; padding: 9px 20px; border-radius: 999px; font-size: 14.5px; }
+    .tab .icon { width: 20px; height: 20px; }
+    .app-content { order: 2; padding: 28px 28px 40px; }
+    body.touring .app-content { padding-bottom: 80vh; }
+    .wrap { max-width: 1080px; }
+    #tab-momentum, #tab-setup, #tab-coach, #scoreboard { width: 100%; max-width: 860px; margin-left: auto; margin-right: auto; }
+    body[data-tab="tracker"] #scoreboard { max-width: none; }
+    #tab-stats { max-width: 1080px; }
+    #tab-tracker.active { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+    #tab-tracker > .card:nth-child(1) { grid-column: 1; grid-row: 1 / span 2; }
+    #tab-tracker > .card:nth-child(2) { grid-column: 2; grid-row: 1; }
+    #tab-tracker > .card:nth-child(3) { grid-column: 2; grid-row: 2; }
+    #stats-body { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; }
+    #stats-body > :first-child, #stats-body > .btn-grid, #stats-body > .card:only-child { grid-column: 1 / -1; }
+    .lines-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+    .tour-card[data-pos="bottom"] { bottom: 32px; }
+    .tour-card[data-pos="top"] { top: 132px; }
+    .brand-title { font-size: 26px; }
+    .logo { width: 66px; height: 40px; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- Icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M5.2 5.6c3.6 2.6 3.6 10.2 0 12.8"/><path d="M18.8 5.6c-3.6 2.6-3.6 10.2 0 12.8"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><path d="M3 4v16h18"/><path d="M7 15l4-4 3 3 6-7"/></symbol>
+  <symbol id="i-bars" viewBox="0 0 24 24"><path d="M5 20v-9M12 20V4M19 20v-6"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h9M19 7h1M4 17h1M11 17h9"/><circle cx="16" cy="7" r="2.5"/><circle cx="8" cy="17" r="2.5"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3M8 21v-7h8v7"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-unlock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 7.5-2"/></symbol>
+  <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 4v11M7.5 10.5L12 15l4.5-4.5M5 19h14"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M6 21V4M6 5h12l-2.5 4L18 13H6"/></symbol>
+  <symbol id="i-reset" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14-4M4 4v4h4M4 13a8 8 0 0 0 14 4M20 20v-4h-4"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.6 2.6 0 1 1 3.6 2.4c-.8.4-1.2.9-1.2 1.8M12 17h.01"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-clip" viewBox="0 0 24 24"><rect x="5" y="4.5" width="14" height="16.5" rx="2.5"/><path d="M9 4.5V3.5h6v1"/><path d="M8.5 12.2l1.6 1.6 3-3M8.5 17.2h7"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+</svg>
+
+<header class="app-header">
+  <div class="brand">
+    <div class="logo" id="logo" role="img" aria-label="T.L. Hanna Tennis logo"><svg viewBox="0 0 120 72" aria-hidden="true">
+  <defs>
+    <linearGradient id="lg-gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe58a"/>
+      <stop offset="0.5" stop-color="#e9b930"/>
+      <stop offset="1" stop-color="#b8860f"/>
+    </linearGradient>
+    <linearGradient id="lg-plate" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1b1b1f"/>
+      <stop offset="1" stop-color="#050506"/>
+    </linearGradient>
+  </defs>
+  <polygon points="15,2 118,2 118,57 105,70 2,70 2,15" fill="url(#lg-plate)" stroke="url(#lg-gold)" stroke-width="3" stroke-linejoin="round"/>
+  <polygon points="17,7 113,7 113,55 103,65 7,65 7,17" fill="none" stroke="#e9b930" stroke-opacity="0.35" stroke-width="1"/>
+  <g transform="translate(22 12) scale(0.9) skewX(-12)" fill="url(#lg-gold)">
+    <path d="M0 0H31V6L28 9H20.5V34H10.5V9H3L0 6Z"/>
+    <path d="M37 0H47V25H60V34H37Z"/>
+    <path d="M66 0H76V12.5H87V0H97V34H87V22H76V34H66Z"/>
+  </g>
+  <path d="M20 53.5H95L92 57.5H16Z" fill="url(#lg-gold)"/>
+  <circle cx="102" cy="55.5" r="4.2" fill="#e9b930"/>
+  <path d="M99.3 52.9C101.2 54.3 101.2 56.7 99.3 58.1M104.7 52.9C102.8 54.3 102.8 56.7 104.7 58.1" fill="none" stroke="#0a0a0b" stroke-width="0.9" stroke-linecap="round"/>
+</svg></div>
+    <div class="brand-text">
+      <div class="brand-title">T.L. Hanna Tennis</div>
+      <div class="save-status" id="save-status" aria-live="polite"><span class="save-dot"></span><span id="save-text">Auto-save on</span></div>
+    </div>
+  </div>
+  <button class="btn btn-save" id="btn-save" data-action="save" aria-label="Save match">
+    <svg class="icon" aria-hidden="true"><use href="#i-save"/></svg><span>Save</span>
+  </button>
+</header>
+
+<main class="app-content" id="main">
+  <div class="wrap">
+
+    <section class="board" id="scoreboard" aria-label="Scoreboard"></section>
+
+    <!-- TRACKER -->
+    <section id="tab-tracker" class="tab-panel active" role="tabpanel" aria-label="Tracker">
+      <div class="card">
+        <div class="card-head">
+          <h2 class="card-title">Record point</h2>
+          <span class="serving-note" id="serving-note"></span>
+        </div>
+        <div class="banner" id="lock-banner" hidden></div>
+        <div id="rec-picker"></div>
+        <div class="rule none" id="rec-rule"></div>
+        <div class="winner-grid" id="rec-winners">
+          <button class="btn win-btn t1" data-action="win" data-team="t1"><span class="w-name"></span><span class="w-role"></span><svg class="icon lock" aria-hidden="true"><use href="#i-lock"/></svg></button>
+          <button class="btn win-btn t2" data-action="win" data-team="t2"><span class="w-name"></span><span class="w-role"></span><svg class="icon lock" aria-hidden="true"><use href="#i-lock"/></svg></button>
+        </div>
+        <div class="actions-row" id="rec-actions">
+          <button class="btn btn-secondary" id="btn-undo" data-action="undo"><svg class="icon" aria-hidden="true"><use href="#i-undo"/></svg>Undo last</button>
+          <button class="btn btn-secondary" id="btn-unresolved" data-action="unresolved"><svg class="icon" aria-hidden="true"><use href="#i-help"/></svg>Not sure</button>
+        </div>
+      </div>
+
+      <div class="card" id="match-actions">
+        <h2 class="card-title" style="margin-bottom:12px">Match actions</h2>
+        <div class="btn-grid">
+          <button class="btn btn-primary span-2" id="btn-end" data-action="end"></button>
+          <button class="btn btn-secondary" id="btn-export-1" data-action="export"><svg class="icon" aria-hidden="true"><use href="#i-share"/></svg>Export stats</button>
+          <button class="btn btn-danger" id="btn-reset" data-action="reset"><svg class="icon" aria-hidden="true"><use href="#i-reset"/></svg>Reset</button>
+        </div>
+      </div>
+
+      <div class="card" id="log-card">
+        <div class="card-head"><h2 class="card-title">Point log</h2><span class="card-sub" id="log-count"></span></div>
+        <ul class="log" id="log"></ul>
+      </div>
+    </section>
+
+    <!-- MOMENTUM -->
+    <section id="tab-momentum" class="tab-panel" role="tabpanel" aria-label="Momentum">
+      <div class="card">
+        <h2 class="card-title">Match momentum</h2>
+        <p class="card-sub">Running point difference. Tap or drag along the line to inspect a point.</p>
+        <div id="chart"></div>
+        <div class="legend" id="chart-legend" hidden>
+          <span><i class="ring"></i>Game won</span>
+          <span><i class="df"></i>Double fault</span>
+          <span><i class="un"></i>Unresolved</span>
+        </div>
+        <div class="detail" id="momentum-detail" hidden></div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section id="tab-stats" class="tab-panel" role="tabpanel" aria-label="Stats">
+      <div id="stats-body" class="stack"></div>
+    </section>
+
+    <!-- COACHING -->
+    <section id="tab-coach" class="tab-panel" role="tabpanel" aria-label="Coaching">
+      <div class="stack" id="coach"></div>
+    </section>
+
+    <!-- SETUP -->
+    <section id="tab-setup" class="tab-panel" role="tabpanel" aria-label="Settings">
+      <div id="setup" class="stack" data-play="singles">
+        <div class="card" id="card-players">
+          <h2 class="card-title">Players</h2>
+          <p class="card-sub">Names appear on the scoreboard, in stats and in exports.</p>
+          <div class="team-block">
+            <h3><i class="dot t1"></i>Team 1</h3>
+            <div class="field"><label for="name-p1a">Player</label><input class="input" id="name-p1a" data-name="p1a" maxlength="28" placeholder="Player 1" autocomplete="off"></div>
+            <div class="field only-doubles"><label for="name-p1b">Partner</label><input class="input" id="name-p1b" data-name="p1b" maxlength="28" placeholder="Partner 1" autocomplete="off"></div>
+          </div>
+          <div class="team-block">
+            <h3><i class="dot t2"></i>Team 2</h3>
+            <div class="field"><label for="name-p2a">Player</label><input class="input" id="name-p2a" data-name="p2a" maxlength="28" placeholder="Player 2" autocomplete="off"></div>
+            <div class="field only-doubles"><label for="name-p2b">Partner</label><input class="input" id="name-p2b" data-name="p2b" maxlength="28" placeholder="Partner 2" autocomplete="off"></div>
+          </div>
+        </div>
+
+        <div class="card" id="card-match">
+          <h2 class="card-title">Match</h2>
+          <p class="card-sub">Changing play mode or format clears the points recorded so far.</p>
+          <div class="set-row">
+            <span class="lbl" id="lbl-mode">Play mode</span>
+            <div class="seg" role="radiogroup" aria-labelledby="lbl-mode" id="seg-mode">
+              <button role="radio" data-set-mode="singles">Singles</button>
+              <button role="radio" data-set-mode="doubles">Doubles</button>
+            </div>
+          </div>
+          <div class="set-row">
+            <span class="lbl" id="lbl-format">Format</span>
+            <div class="fmt-list" role="radiogroup" aria-labelledby="lbl-format" id="seg-format"></div>
+          </div>
+          <div class="set-row">
+            <span class="lbl" id="lbl-server">First server</span>
+            <div class="opt-grid" role="radiogroup" aria-labelledby="lbl-server" id="first-server"></div>
+            <p class="hint" id="server-hint"></p>
+          </div>
+        </div>
+
+        <div class="card" id="card-saved">
+          <h2 class="card-title">Saved matches</h2>
+          <p class="card-sub">The match you're tracking saves itself automatically. Press Save to keep a copy here.</p>
+          <div id="library"></div>
+        </div>
+
+        <div class="card" id="card-tutorials">
+          <h2 class="card-title">Tutorials</h2>
+          <p class="card-sub">Short walkthroughs for each tab. Replay them any time.</p>
+          <div class="tut-list" id="tut-list"></div>
+          <label class="switch-row" for="tut-auto"><span>Show tutorials the first time I open a tab</span><input type="checkbox" id="tut-auto"></label>
+          <button type="button" class="btn btn-ghost btn-block" data-action="tour-reset">Show every tutorial again</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- Edit point modal -->
+<div class="modal-overlay" id="edit-modal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="edit-title">
+    <div>
+      <h2 id="edit-title">Edit point</h2>
+      <p id="edit-sub"></p>
+    </div>
+    <div id="edit-picker"></div>
+    <div class="rule none" id="edit-rule" style="margin:0"></div>
+    <div>
+      <div class="winner-grid" id="edit-winners">
+        <button class="btn win-btn t1" data-action="edit-win" data-team="t1"><span class="w-name"></span><span class="w-role"></span><svg class="icon lock" aria-hidden="true"><use href="#i-lock"/></svg></button>
+        <button class="btn win-btn t2" data-action="edit-win" data-team="t2"><span class="w-name"></span><span class="w-role"></span><svg class="icon lock" aria-hidden="true"><use href="#i-lock"/></svg></button>
+      </div>
+      <p class="hint" style="margin-top:8px">Tap the winner to save the change.</p>
+    </div>
+    <div class="modal-actions row">
+      <button class="btn btn-danger" data-action="edit-delete"><svg class="icon" aria-hidden="true"><use href="#i-trash"/></svg>Delete</button>
+      <button class="btn btn-ghost" data-action="edit-cancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Generic dialog -->
+<div class="modal-overlay" id="dialog" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="dlg-title" id="dialog-box"></div>
+</div>
+
+<div id="datalists" hidden></div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<div class="tour" id="tour" hidden>
+  <div class="tour-spot" id="tour-spot" hidden></div>
+  <div class="tour-card" id="tour-card" role="dialog" aria-modal="true" aria-labelledby="tour-title" data-pos="center">
+    <div class="tour-top"><span class="tour-count" id="tour-count"></span><button type="button" class="tour-skip" id="tour-skip" data-tour="skip">Skip</button></div>
+    <h3 id="tour-title"></h3>
+    <p id="tour-text"></p>
+    <div class="tour-dots" id="tour-dots"></div>
+    <div class="tour-nav"><button type="button" class="btn btn-ghost" id="tour-back" data-tour="back">Back</button><button type="button" class="btn btn-primary" id="tour-next" data-tour="next">Next</button></div>
+  </div>
+</div>
+
+<nav class="tab-bar" aria-label="Sections">
+  <button class="tab active" data-tab="tracker"><svg class="icon" aria-hidden="true"><use href="#i-ball"/></svg><span>Tracker</span></button>
+  <button class="tab" data-tab="momentum"><svg class="icon" aria-hidden="true"><use href="#i-trend"/></svg><span>Momentum</span></button>
+  <button class="tab" data-tab="stats"><svg class="icon" aria-hidden="true"><use href="#i-bars"/></svg><span>Stats</span></button>
+  <button class="tab" data-tab="coach"><svg class="icon" aria-hidden="true"><use href="#i-clip"/></svg><span>Coaching</span></button>
+  <button class="tab" data-tab="setup"><svg class="icon" aria-hidden="true"><use href="#i-sliders"/></svg><span>Settings</span></button>
+</nav>
+
+<script>
+'use strict';
+
+/* =====================================================================
+   Constants & helpers
+   ===================================================================== */
+const KEY_SESSION = 'tlh_tracker_session_v2';
+const KEY_LIBRARY = 'tlh_tracker_library_v2';
+const POINT_LABELS = ['0', '15', '30', '40', 'AD'];
+const NAME_KEYS = ['p1a', 'p1b', 'p2a', 'p2b'];
+/* Match formats. Every rule the engine needs is data here, so a new format is one entry.
+   setsToWin: sets needed to win the match.  gamesToWin: games to win a set (win by 2).
+   tbAt/tbTarget: tiebreak is played at tbAt-all, to tbTarget points (win by 2).
+   noAd: no-ad scoring, one deciding point at 40-40.
+   decider 'matchTB': at 1-1 in sets a 10-point tiebreak replaces the last set.  tbOnly: whole match is one tiebreak. */
+const FORMATS = {
+  best3: {
+    name: 'Best of 3 sets', setsToWin: 2, gamesToWin: 6, tbAt: 6, tbTarget: 7, noAd: false, decider: 'matchTB',
+    label: 'Best of 3 sets (10-point tiebreak at 1-1)',
+    desc: 'First to win 2 sets. Sets go to 6 games with a tiebreak to 7 at 6\u20136. If sets are split 1\u20131, a 10-point tiebreak decides the match.'
+  },
+  best3noad: {
+    name: 'Best of 3 sets, no-ad', setsToWin: 2, gamesToWin: 6, tbAt: 6, tbTarget: 7, noAd: true, decider: 'matchTB',
+    label: 'Best of 3 sets, no-ad (10-point tiebreak at 1-1)',
+    desc: 'First to win 2 sets. No-ad scoring: at 40\u201340 one deciding point wins the game. Tiebreak to 7 at 6\u20136. If sets are split 1\u20131, a 10-point tiebreak decides the match.'
+  },
+  proset8: {
+    name: '8-game pro set', setsToWin: 1, gamesToWin: 8, tbAt: 8, tbTarget: 7, noAd: false, decider: 'set',
+    label: '8-game pro set (tiebreak to 7 at 8-8)',
+    desc: 'One set. First to 8 games wins, by 2 games. At 8\u20138 a tiebreak to 7 decides it.'
+  },
+  tiebreak10: {
+    name: '10-point tiebreak', tbOnly: 10, setsToWin: 1, gamesToWin: 0, tbAt: 0, tbTarget: 10, noAd: false, decider: 'set',
+    label: 'Single 10-point tiebreak',
+    desc: 'One tiebreak played to 10 points, win by 2.'
+  }
+};
+const FORMAT_ORDER = ['best3', 'best3noad', 'proset8', 'tiebreak10'];
+const FORMAT_LABEL = Object.fromEntries(Object.entries(FORMATS).map(([k, v]) => [k, v.label]));
+const fmtOf = cfg => FORMATS[cfg.format] || FORMATS.best3;
+const isTBOnly = cfg => !!fmtOf(cfg).tbOnly;
+
+const $ = (s, root = document) => root.querySelector(s);
+const other = t => (t === 't1' ? 't2' : 't1');
+const teamOfKey = k => (k.charAt(1) === '1' ? 't1' : 't2');
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const pct = (a, b) => (b ? Math.round((a / b) * 100) : 0);
+const trunc = (s, n = 22) => (s.length > n ? s.slice(0, n - 1) + '\u2026' : s);
+const newId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+const icon = (name, cls = '') => `<svg class="icon ${cls}" aria-hidden="true"><use href="#i-${name}"/></svg>`;
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+function fmtDate(iso) {
+  const d = new Date(iso);
+  return isNaN(d) ? '' : d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+}
+function localISODate(iso) {
+  const d = new Date(iso); const p = n => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+}
+
+/* =====================================================================
+   Scoring engine (pure functions, no DOM).
+   The app stores only the shot count of each point. Everything else,
+   including the winner, is derived by replaying the points in order.
+   ===================================================================== */
+
+/* Shot 1 is the serve. Odd shots are hit by the server, even shots by the
+   returner, so whoever hit the last shot won the point. 0 shots = double fault. */
+function deriveWinner(shots, serverTeam) {
+  if (shots === null || shots === undefined) return null;
+  if (shots === 0) return other(serverTeam);
+  return shots % 2 === 1 ? serverTeam : other(serverTeam);
+}
+
+function newEngine(cfg) {
+  return {
+    t1: { points: 0, games: 0, sets: 0 },
+    t2: { points: 0, games: 0, sets: 0 },
+    server: cfg.initialServer,
+    idx: { t1: cfg.initialServer === 'p1b' ? 1 : 0, t2: cfg.initialServer === 'p2b' ? 1 : 0 },
+    tbCount: 0,
+    tbStart: null,
+    setScores: [],
+    over: false,
+    winner: null
+  };
+}
+
+function tiebreakInfo(s, cfg) {
+  const F = fmtOf(cfg);
+  if (F.tbOnly) return { active: true, target: F.tbOnly, kind: 'match' };
+  if (F.decider === 'matchTB' && s.t1.sets === 1 && s.t2.sets === 1) return { active: true, target: 10, kind: 'match' };
+  if (s.t1.games === F.tbAt && s.t2.games === F.tbAt) return { active: true, target: F.tbTarget, kind: 'set' };
+  return { active: false, target: 0, kind: null };
+}
+
+function advanceServer(s, cfg) {
+  const cur = teamOfKey(s.server), nxt = other(cur);
+  if (cfg.mode === 'doubles') {
+    s.idx[cur] = 1 - s.idx[cur]; // the partner serves the next time this team serves
+    s.server = (nxt === 't1' ? 'p1' : 'p2') + (s.idx[nxt] === 0 ? 'a' : 'b');
+  } else {
+    s.server = nxt === 't1' ? 'p1a' : 'p2a';
+  }
+}
+
+function finishGame(s, cfg, winner, tb, result) {
+  const F = fmtOf(cfg);
+  const loser = other(winner);
+  result.gameEnded = true;
+  const finalPts = { t1: s.t1.points, t2: s.t2.points };
+  s.t1.points = 0; s.t2.points = 0; s.tbCount = 0;
+  const tbStart = s.tbStart; s.tbStart = null;
+
+  if (tb.active && tb.kind === 'match') {
+    s[winner].sets++;
+    s.setScores.push({ t1: finalPts.t1, t2: finalPts.t2, matchTiebreak: true, tiebreak: null });
+    result.setEnded = true; result.matchEnded = true;
+    s.over = true; s.winner = winner;
+    return;
+  }
+
+  s[winner].games++;
+  const setWon = tb.active || (s[winner].games >= F.gamesToWin && s[winner].games - s[loser].games >= 2);
+  if (setWon) {
+    s[winner].sets++;
+    s.setScores.push({ t1: s.t1.games, t2: s.t2.games, matchTiebreak: false, tiebreak: tb.active ? finalPts : null });
+    s.t1.games = 0; s.t2.games = 0;
+    result.setEnded = true;
+    if (s[winner].sets >= F.setsToWin) { s.over = true; s.winner = winner; result.matchEnded = true; }
+  }
+  // Whoever served first in a set tiebreak receives first in the next set, whatever the
+  // number of points played. Rewind to the tiebreak's start, then rotate once like a normal game.
+  if (tb.active && tbStart) { s.server = tbStart.server; s.idx = { ...tbStart.idx }; }
+  advanceServer(s, cfg);
+}
+
+function scorePoint(s, cfg, winner) {
+  const F = fmtOf(cfg);
+  const loser = other(winner);
+  const tb = tiebreakInfo(s, cfg);
+  const result = { gameEnded: false, setEnded: false, matchEnded: false };
+  const w = s[winner], l = s[loser];
+
+  if (tb.active) {
+    if (s.tbCount === 0) s.tbStart = { server: s.server, idx: { ...s.idx } };
+    w.points++;
+    s.tbCount++;
+    if (w.points >= tb.target && w.points - l.points >= 2) {
+      finishGame(s, cfg, winner, tb, result);
+    } else if (s.tbCount % 2 === 1) {
+      advanceServer(s, cfg); // tiebreak: server changes after the 1st point, then every 2 points
+    }
+  } else if (w.points === 3 && l.points === 3) {                          // 40-40
+    if (F.noAd) finishGame(s, cfg, winner, tb, result);                   // no-ad: deciding point wins the game
+    else w.points = 4;                                                    // advantage
+  }
+  else if (w.points === 4) { finishGame(s, cfg, winner, tb, result); }   // wins from advantage
+  else if (l.points === 4) { l.points = 3; }                              // back to deuce
+  else if (w.points === 3) { finishGame(s, cfg, winner, tb, result); }   // wins from 40
+  else { w.points++; }
+  return result;
+}
+
+function gameScoreText(s, cfg) {
+  const tb = tiebreakInfo(s, cfg);
+  if (tb.active) return `${s.t1.points}\u2013${s.t2.points}`;
+  if (s.t1.points === 3 && s.t2.points === 3) return fmtOf(cfg).noAd ? '40\u201340, deciding point' : 'Deuce';
+  return `${POINT_LABELS[s.t1.points]}\u2013${POINT_LABELS[s.t2.points]}`;
+}
+
+function replay(cfg, points) {
+  const s = newEngine(cfg);
+  const rows = [];
+  for (let i = 0; i < points.length; i++) {
+    if (s.over) break;
+    const shots = points[i].shots;
+    const serverKey = s.server, serverTeam = teamOfKey(serverKey);
+    const winner = deriveWinner(shots, serverTeam);
+    const row = {
+      n: i + 1, shots, winner, serverKey, serverTeam,
+      isDF: shots === 0,
+      gameEnded: false, setEnded: false, matchEnded: false, scoreText: ''
+    };
+    if (winner) {
+      Object.assign(row, scorePoint(s, cfg, winner));
+      if (row.setEnded) {
+        const e = s.setScores[s.setScores.length - 1];
+        row.scoreText = `Set ${fmtSet(e, false)}`;
+      } else if (row.gameEnded) {
+        row.scoreText = `Game, ${s.t1.games}\u2013${s.t2.games}`;
+      } else {
+        row.scoreText = gameScoreText(s, cfg);
+      }
+    } else {
+      row.scoreText = 'No score change';
+    }
+    rows.push(row);
+  }
+  return { s, rows, ignored: points.length - rows.length };
+}
+
+function fmtSet(e, flip) {
+  const a = flip ? e.t2 : e.t1, b = flip ? e.t1 : e.t2;
+  if (e.matchTiebreak) return `[${a}\u2013${b}]`;
+  let t = `${a}\u2013${b}`;
+  if (e.tiebreak) t += `(${Math.min(e.tiebreak.t1, e.tiebreak.t2)})`;
+  return t;
+}
+
+function computeStats(cfg, rows, s) {
+  const blank = () => ({ won: 0, df: 0, b04: 0, b57: 0, b8: 0 });
+  const t = { t1: blank(), t2: blank() };
+  let resolved = 0, unresolved = 0, shotsSum = 0, longest = 0;
+  rows.forEach(r => {
+    if (!r.winner) { unresolved++; return; }
+    resolved++; shotsSum += r.shots; longest = Math.max(longest, r.shots);
+    const w = r.winner;
+    t[w].won++;
+    if (r.isDF) t[r.serverTeam].df++;
+    if (r.shots <= 4) t[w].b04++; else if (r.shots <= 7) t[w].b57++; else t[w].b8++;
+  });
+  const games = { t1: s.t1.games, t2: s.t2.games };
+  s.setScores.forEach(e => { if (!e.matchTiebreak) { games.t1 += e.t1; games.t2 += e.t2; } });
+  return {
+    t, resolved, unresolved, longest, games,
+    sets: { t1: s.t1.sets, t2: s.t2.sets },
+    avg: resolved ? (shotsSum / resolved).toFixed(1) : '0.0'
+  };
+}
+
+/* =====================================================================
+   App state
+   ===================================================================== */
+let match = newMatch();
+let view = null;
+let library = [];
+let draft = { shots: 1 };
+let edit = null;
+let selectedPoint = null;
+let activeTab = 'tracker';
+let storageOK = true;
+let lastAutoSave = null;
+let dialogOpen = false;
+let persistTimer = null;
+
+function newMatch(keep) {
+  return {
+    id: newId(),
+    createdAt: new Date().toISOString(),
+    cfg: keep ? { ...keep.cfg } : { mode: 'singles', format: 'best3', initialServer: 'p1a' },
+    names: keep ? { ...keep.names } : { p1a: '', p1b: '', p2a: '', p2b: '' },
+    points: [],
+    locked: false
+  };
+}
+
+function labelsFor(m) {
+  const pick = (k, d) => ((m.names[k] || '').trim() || d);
+  const p1a = pick('p1a', 'Player 1'), p1b = pick('p1b', 'Partner 1');
+  const p2a = pick('p2a', 'Player 2'), p2b = pick('p2b', 'Partner 2');
+  const dbl = m.cfg.mode === 'doubles';
+  return { p1a, p1b, p2a, p2b, t1: dbl ? `${p1a} / ${p1b}` : p1a, t2: dbl ? `${p2a} / ${p2b}` : p2a };
+}
+const labels = () => labelsFor(match);
+
+function derive() {
+  const r = replay(match.cfg, match.points);
+  if (r.ignored > 0) match.points.length = r.rows.length; // drop anything recorded after the match ended
+  view = { s: r.s, rows: r.rows, stats: computeStats(match.cfg, r.rows, r.s) };
+}
+
+function summarize(m) {
+  const L = labelsFor(m);
+  const r = replay(m.cfg, m.points);
+  const s = r.s;
+  const flip = s.winner === 't2';
+  const sets = s.setScores.map(e => fmtSet(e, flip)).join(', ');
+  let status, headline;
+  if (s.over) { status = 'Final'; headline = `${L[s.winner]} won`; }
+  else if (m.locked) { status = 'Ended early'; headline = 'Match ended early'; }
+  else if (m.points.length) { status = 'In progress'; headline = 'Match in progress'; }
+  else { status = 'Not started'; headline = 'No points recorded yet'; }
+  return { L, s, rows: r.rows, sets, status, headline, over: s.over, winner: s.winner };
+}
+
+function resultLine(sm, nPoints) {
+  const L = sm.L;
+  const parts = [];
+  if (sm.over) parts.push(`${L[sm.winner]} won ${sm.sets}`.trim());
+  else { parts.push(sm.status); if (sm.sets) parts.push(sm.sets); }
+  parts.push(`${nPoints} point${nPoints === 1 ? '' : 's'}`);
+  return parts.join(', ');
+}
+
+/* =====================================================================
+   Persistence: automatic session save + saved-match library
+   ===================================================================== */
+function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { storageOK = false; return null; } }
+function lsSet(k, v) { try { localStorage.setItem(k, v); return true; } catch (e) { storageOK = false; return false; } }
+function lsDel(k) { try { localStorage.removeItem(k); } catch (e) { /* ignore */ } }
+
+function sanitizeMatch(raw) {
+  try {
+    if (!raw || typeof raw !== 'object') return null;
+    const m = newMatch();
+    if (typeof raw.id === 'string') m.id = raw.id;
+    if (typeof raw.createdAt === 'string') m.createdAt = raw.createdAt;
+    const cfg = raw.cfg || {};
+    m.cfg.mode = cfg.mode === 'doubles' ? 'doubles' : 'singles';
+    m.cfg.format = Object.prototype.hasOwnProperty.call(FORMATS, cfg.format) ? cfg.format : 'best3';
+    const valid = m.cfg.mode === 'doubles' ? NAME_KEYS : ['p1a', 'p2a'];
+    m.cfg.initialServer = valid.includes(cfg.initialServer) ? cfg.initialServer : 'p1a';
+    NAME_KEYS.forEach(k => { if (raw.names && typeof raw.names[k] === 'string') m.names[k] = raw.names[k].slice(0, 28); });
+    if (Array.isArray(raw.points)) {
+      m.points = raw.points.map(p => {
+        const v = p && p.shots;
+        return { shots: Number.isInteger(v) && v >= 0 && v <= 99 ? v : null };
+      });
+    }
+    m.locked = !!raw.locked;
+    return m;
+  } catch (e) { return null; }
+}
+
+function persistSession() {
+  clearTimeout(persistTimer);
+  if (sessionStartedEmpty) { // storage looked empty at start: keep whatever appears there before writing over it
+    sessionStartedEmpty = false;
+    const late = lsGet(KEY_SESSION);
+    if (late) lsSet(KEY_SESSION + '_prev', late);
+  }
+  const ok = lsSet(KEY_SESSION, JSON.stringify({ v: 2, match }));
+  if (ok) { storageOK = true; lastAutoSave = new Date(); }
+  renderHeader();
+}
+function schedulePersist() { clearTimeout(persistTimer); persistTimer = setTimeout(persistSession, 300); }
+
+let sessionStartedEmpty = false, libraryStartedEmpty = false;
+function loadSession() {
+  const raw = lsGet(KEY_SESSION);
+  if (!raw) { sessionStartedEmpty = true; return null; }
+  try { const o = JSON.parse(raw); return sanitizeMatch(o && o.match); } catch (e) { return null; }
+}
+function loadLibrary() {
+  const raw = lsGet(KEY_LIBRARY);
+  if (!raw) { libraryStartedEmpty = true; return []; }
+  try {
+    const arr = JSON.parse(raw);
+    if (!Array.isArray(arr)) return [];
+    return arr.map(e => {
+      const m = sanitizeMatch(e && e.match);
+      return m ? { id: m.id, savedAt: typeof e.savedAt === 'string' ? e.savedAt : m.createdAt, match: m } : null;
+    }).filter(Boolean);
+  } catch (e) { return []; }
+}
+
+const sigOf = m => JSON.stringify([m.cfg, m.names, m.points, m.locked]);
+function isSavedToLibrary() {
+  const e = library.find(x => x.id === match.id);
+  return !!e && sigOf(e.match) === sigOf(match);
+}
+
+function adoptLateLibrary() {
+  if (!libraryStartedEmpty) return false;
+  const raw = lsGet(KEY_LIBRARY);
+  if (!raw) return false;
+  libraryStartedEmpty = false;
+  const stored = loadLibrary(); libraryStartedEmpty = false;
+  stored.forEach(e => { if (!library.some(x => x.id === e.id)) library.push(e); });
+  return true;
+}
+function saveToLibrary(opts = {}) {
+  adoptLateLibrary();
+  if (!match.points.length) { if (!opts.silent) toast('Record a point first, then save the match.'); return false; }
+  const entry = { id: match.id, savedAt: new Date().toISOString(), match: JSON.parse(JSON.stringify(match)) };
+  const i = library.findIndex(e => e.id === match.id);
+  const prev = i >= 0 ? library[i] : null;
+  if (i >= 0) library[i] = entry; else library.unshift(entry);
+  if (!lsSet(KEY_LIBRARY, JSON.stringify(library))) {
+    if (i >= 0) library[i] = prev; else library.shift();
+    renderHeader();
+    toast("Couldn't save. Browser storage is unavailable or full.");
+    return false;
+  }
+  renderHeader(); renderLibrary();
+  if (!opts.silent) toast('Match saved. Open it anytime from Settings.');
+  return true;
+}
+
+/* =====================================================================
+   Coaching data: Varsity and JV matches, rosters, lineups and records.
+   A dual has 5 singles lines and 2 Doubles. Every line won is 1 team point, and the first
+   team to 4 points wins. If the six lines finish 3-3, 1 Doubles decides the match.
+   ===================================================================== */
+const KEY_COACH = 'tlh_coach_v1';   // schema v2; data saved by earlier versions is upgraded when it loads
+const todayISO = () => localISODate(new Date().toISOString());
+function fmtDayShort(ymd) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(ymd || '');
+  if (!m) return '';
+  const dt = new Date(+m[1], +m[2] - 1, +m[3]);
+  return dt.toLocaleDateString(undefined, dt.getFullYear() === new Date().getFullYear() ? { month: 'short', day: 'numeric' } : { month: 'short', day: 'numeric', year: 'numeric' });
+}
+function fmtDay(ymd) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(ymd || '');
+  if (!m) return '';
+  return new Date(+m[1], +m[2] - 1, +m[3]).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+}
+const LEVELS = ['varsity', 'jv'];
+const LEVEL_NAME = { varsity: 'Varsity', jv: 'JV' };
+const SIX_KEYS = ['s1', 's2', 's3', 's4', 's5', 'd2'];
+const LINE_KEYS = [...SIX_KEYS, 'd1'];
+const LINE_TITLE = { s1: '#1 Singles', s2: '#2 Singles', s3: '#3 Singles', s4: '#4 Singles', s5: '#5 Singles', d2: '2 Doubles', d1: '1 Doubles' };
+const POINTS_TO_WIN = 4;
+const GRADES = ['8', '9', '10', '11', '12'];
+const isDoublesLine = k => k.charAt(0) === 'd';
+const gradeLabel = g => (g === '' ? '' : (g === '11' ? '11th' : g === '12' ? '12th' : g === '10' ? '10th' : g === '9' ? '9th' : '8th'));
+
+function defaultCoach() {
+  const lineup = {}, roster = {};
+  LEVELS.forEach(l => { lineup[l] = {}; LINE_KEYS.forEach(k => { lineup[l][k] = ['', '']; }); roster[l] = []; });
+  return { v: 2, level: 'varsity', teams: [], lineup, roster, duals: [] };
+}
+let coach = defaultCoach();
+let lastSave = null, coachTimer = null, coachWarned = false;
+
+/* Loads current data, and also upgrades data saved by earlier versions:
+   one lineup becomes the Varsity lineup, matches become Varsity matches, and lines that were
+   charted point by point keep their winner and score. */
+function sanitizeCoach(raw) {
+  const c = defaultCoach();
+  {
+    if (!raw || typeof raw !== 'object') return c;
+    const str = (v, n) => (typeof v === 'string' ? v.slice(0, n) : '');
+    const pair = a => [str(a && a[0], 28), str(a && a[1], 28)];
+    if (raw.level === 'jv') c.level = 'jv';
+
+    if (raw.lineup && typeof raw.lineup === 'object') {
+      const perLevel = !!(raw.lineup.varsity || raw.lineup.jv);
+      LEVELS.forEach(l => {
+        const src = perLevel ? raw.lineup[l] : (l === 'varsity' ? raw.lineup : null);
+        if (src && typeof src === 'object') LINE_KEYS.forEach(k => { c.lineup[l][k] = pair(src[k]); });
+      });
+    }
+    if (raw.roster && typeof raw.roster === 'object') {
+      LEVELS.forEach(l => {
+        const arr = raw.roster[l]; if (!Array.isArray(arr)) return;
+        const seen = new Set();
+        arr.forEach(p => {
+          const name = str(p && p.name, 40).trim(), key = name.toLowerCase();
+          if (!name || seen.has(key)) return;
+          seen.add(key);
+          c.roster[l].push({ id: str(p.id, 40) || newId(), name, grade: GRADES.includes(p.grade) ? p.grade : '', notes: str(p.notes, 80) });
+        });
+      });
+    }
+    if (Array.isArray(raw.teams)) {
+      const seen = new Set();
+      raw.teams.forEach(t => {
+        const name = str(t && t.name, 40).trim(), key = name.toLowerCase();
+        if (name && !seen.has(key)) { seen.add(key); c.teams.push({ id: str(t.id, 40) || newId(), name }); }
+      });
+    }
+    if (Array.isArray(raw.duals)) {
+      raw.duals.forEach(d => {
+        if (!d || typeof d !== 'object') return;
+        const lines = {};
+        LINE_KEYS.forEach(k => {
+          const r = (d.lines && d.lines[k]) || {};
+          const line = { tl: pair(r.tl), opp: pair(r.opp), result: r.result === 'tl' || r.result === 'opp' ? r.result : null, score: str(r.score, 40) };
+          const old = r.stats ? legacyLineResult(r.stats) : null; // a finished charted line decided its own result
+          if (old) { line.result = old.result; line.score = old.score.slice(0, 40); }
+          lines[k] = line;
+        });
+        c.duals.push({
+          id: str(d.id, 40) || newId(),
+          level: d.level === 'jv' ? 'jv' : 'varsity',
+          date: typeof d.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(d.date) ? d.date : todayISO(),
+          opponent: str(d.opponent, 40),
+          isRegion: !!d.isRegion,
+          teamId: typeof d.teamId === 'string' ? d.teamId : null,
+          notes: str(d.notes, 600),
+          lines
+        });
+      });
+    }
+  }
+  return c;
+}
+
+let coachLoadFailed = false, coachStartedEmpty = false;
+function loadCoach() {
+  const raw = lsGet(KEY_COACH);
+  if (!raw) { coachStartedEmpty = true; return defaultCoach(); }
+  try { return sanitizeCoach(JSON.parse(raw)); }
+  catch (e) {
+    // Never write over data we couldn't read. Keep a copy so nothing is lost.
+    coachLoadFailed = true;
+    lsSet(KEY_COACH + '_unreadable', raw);
+    return defaultCoach();
+  }
+}
+/* Combines two copies of the coaching data. Nothing from either copy is dropped. */
+function mergeCoach(base, extra) {
+  const idMap = {};
+  extra.teams.forEach(t => {
+    const have = base.teams.find(x => x.name.toLowerCase() === t.name.toLowerCase());
+    if (have) idMap[t.id] = have.id; else { base.teams.push(t); idMap[t.id] = t.id; }
+  });
+  extra.duals.forEach(d => {
+    if (base.duals.some(x => x.id === d.id)) return;
+    if (d.teamId) d.teamId = idMap[d.teamId] || d.teamId;
+    base.duals.push(d);
+  });
+  LEVELS.forEach(l => {
+    extra.roster[l].forEach(p => { if (!base.roster[l].some(x => x.id === p.id || x.name.toLowerCase() === p.name.toLowerCase())) base.roster[l].push(p); });
+    LINE_KEYS.forEach(k => { for (let i = 0; i < 2; i++) if (!base.lineup[l][k][i] && extra.lineup[l][k][i]) base.lineup[l][k][i] = extra.lineup[l][k][i]; });
+  });
+  return base;
+}
+/* If storage looked empty when the app opened, look again before writing anything.
+   A slow or late read must never replace saved data with a blank copy. */
+function adoptLateCoach() {
+  if (!coachStartedEmpty) return false;
+  const raw = lsGet(KEY_COACH);
+  if (!raw) return false;
+  coachStartedEmpty = false;
+  try { coach = mergeCoach(sanitizeCoach(JSON.parse(raw)), coach); }
+  catch (e) { lsSet(KEY_COACH + '_unreadable', raw); }
+  return true;
+}
+function saveCoach() {
+  clearTimeout(coachTimer); coachTimer = null;
+  adoptLateCoach();
+  if (lsSet(KEY_COACH, JSON.stringify(coach))) { storageOK = true; lastSave = new Date(); }
+  else if (!coachWarned) { coachWarned = true; toast("Couldn't save. Browser storage is unavailable or full."); }
+  renderDatalists();
+}
+function scheduleSave() { clearTimeout(coachTimer); coachTimer = setTimeout(saveCoach, 300); }
+
+const findDual = id => coach.duals.find(d => d.id === id) || null;
+const dualsFor = level => coach.duals.filter(d => d.level === level);
+function teamByName(name) {
+  const k = String(name || '').trim().toLowerCase();
+  return k ? (coach.teams.find(t => t.name.toLowerCase() === k) || null) : null;
+}
+const hasLineData = line => !!(line.result || line.score);
+
+function dualOutcome(d) {
+  let tl = 0, opp = 0, done = 0;
+  SIX_KEYS.forEach(k => {
+    const r = d.lines[k].result;
+    if (r === 'tl') { tl++; done++; } else if (r === 'opp') { opp++; done++; }
+  });
+  const needD1 = done === SIX_KEYS.length && tl === 3 && opp === 3;
+  if (needD1) { const r = d.lines.d1.result; if (r === 'tl') tl++; else if (r === 'opp') opp++; }
+  const winner = tl >= POINTS_TO_WIN ? 'tl' : (opp >= POINTS_TO_WIN ? 'opp' : null);
+  return { tl, opp, needD1, winner, decided: !!winner };
+}
+function coachRecords(level) {
+  const rec = { all: { w: 0, l: 0 }, region: { w: 0, l: 0 }, non: { w: 0, l: 0 } };
+  dualsFor(level).forEach(d => {
+    const o = dualOutcome(d);
+    if (!o.decided) return;
+    const k = o.winner === 'tl' ? 'w' : 'l';
+    rec.all[k]++; (d.isRegion ? rec.region : rec.non)[k]++;
+  });
+  return rec;
+}
+function teamRecord(t, level) {
+  const r = { w: 0, l: 0 };
+  dualsFor(level).forEach(d => {
+    if (d.teamId !== t.id) return;
+    const o = dualOutcome(d);
+    if (o.decided) r[o.winner === 'tl' ? 'w' : 'l']++;
+  });
+  return r;
+}
+/* A player's line record at one level, matched by name. */
+function playerRecord(level, name) {
+  const key = String(name || '').trim().toLowerCase(), r = { w: 0, l: 0 };
+  if (!key) return r;
+  dualsFor(level).forEach(d => {
+    const o = dualOutcome(d);
+    LINE_KEYS.forEach(k => {
+      const line = d.lines[k];
+      if (!line.result || (k === 'd1' && !o.needD1)) return;
+      const names = isDoublesLine(k) ? line.tl : [line.tl[0]];
+      if (names.some(n => n.trim().toLowerCase() === key)) r[line.result === 'tl' ? 'w' : 'l']++;
+    });
+  });
+  return r;
+}
+function emptyLines(level) {
+  const o = {}, lu = coach.lineup[level];
+  LINE_KEYS.forEach(k => { o[k] = { tl: [lu[k][0] || '', lu[k][1] || ''], opp: ['', ''], result: null, score: '' }; });
+  return o;
+}
+
+/* ----- Season stats CSV ----- */
+/* Cells that start with = + - or @ can run as formulas when a spreadsheet opens the file, so they get a leading quote. */
+const csvCell = v => {
+  let t = String(v === null || v === undefined ? '' : v);
+  if (typeof v === 'string' && /^[=+\-@\t\r]/.test(t)) t = "'" + t;
+  return /[",\r\n]/.test(t) ? `"${t.replace(/"/g, '""')}"` : t;
+};
+function buildSeasonCSV() {
+  const out = [], add = (...c) => out.push(c.map(csvCell).join(',')), blank = () => out.push('');
+  add('T.L. Hanna Tennis: Season Stats');
+  add('Date exported', todayISO());
+  blank();
+  add('Level', 'Record', 'Wins', 'Losses', 'Win %');
+  LEVELS.forEach(l => {
+    const rec = coachRecords(l);
+    [['Overall', rec.all], ['Region', rec.region], ['Non-region', rec.non]].forEach(([name, r]) => add(LEVEL_NAME[l], name, r.w, r.l, r.w + r.l ? pct(r.w, r.w + r.l) + '%' : ''));
+  });
+  blank();
+  add('Level', 'Rank', 'Player', 'Grade', 'Line wins', 'Line losses', 'Notes');
+  LEVELS.forEach(l => coach.roster[l].forEach((p, i) => {
+    const r = playerRecord(l, p.name);
+    add(LEVEL_NAME[l], i + 1, p.name, p.grade, r.w, r.l, p.notes);
+  }));
+  blank();
+  add('Date', 'Level', 'Opponent', 'Type', 'Result', 'TL Hanna points', 'Opponent points', ...LINE_KEYS.map(k => LINE_TITLE[k]));
+  coach.duals.slice().sort((a, b) => a.date.localeCompare(b.date) || a.id.localeCompare(b.id)).forEach(d => {
+    const o = dualOutcome(d);
+    const cell = k => {
+      const line = d.lines[k];
+      if ((k === 'd1' && !o.needD1) || !line.result) return '';
+      const names = (isDoublesLine(k) ? line.tl : [line.tl[0]]).map(n => n.trim()).filter(Boolean).join(' / ');
+      return `${line.result === 'tl' ? 'W' : 'L'}${names ? ` (${names})` : ''}${line.score ? ' ' + line.score : ''}`;
+    };
+    add(d.date, LEVEL_NAME[d.level], d.opponent, d.isRegion ? 'Region' : 'Non-region', o.winner === 'tl' ? 'Win' : o.winner === 'opp' ? 'Loss' : 'In progress', o.tl, o.opp, ...LINE_KEYS.map(cell));
+  });
+  return '\uFEFF' + out.join('\r\n');
+}
+const hasCoachData = () => coach.duals.length > 0 || LEVELS.some(l => coach.roster[l].length > 0);
+function exportSeason() {
+  if (!hasCoachData()) { toast('Add a match or a player first.'); return; }
+  deliverFile(`TL-Hanna_Season-Stats_${todayISO()}.csv`, buildSeasonCSV(), 'text/csv', 'Stats exported as CSV');
+}
+
+/* Reads an older line that was charted point by point, so its winner and score are kept. */
+function legacyLineResult(stats) {
+  try {
+    const c = stats && stats.cfg ? stats.cfg : {};
+    const cfg = {
+      mode: c.mode === 'doubles' ? 'doubles' : 'singles',
+      format: Object.prototype.hasOwnProperty.call(FORMATS, c.format) ? c.format : 'best3',
+      initialServer: ['p1a', 'p1b', 'p2a', 'p2b'].includes(c.initialServer) ? c.initialServer : 'p1a'
+    };
+    if (cfg.mode === 'singles' && cfg.initialServer.charAt(2) === 'b') cfg.initialServer = cfg.initialServer.charAt(1) === '1' ? 'p1a' : 'p2a';
+    const pts = (Array.isArray(stats.points) ? stats.points : []).slice(0, 2000)
+      .map(p => ({ shots: Number.isInteger(p && p.shots) && p.shots >= 0 && p.shots <= 99 ? p.shots : null }));
+    const r = replay(cfg, pts);
+    if (!r.s.over) return null;
+    return { result: r.s.winner === 't1' ? 'tl' : 'opp', score: r.s.setScores.map(e => fmtSet(e, false)).join(', ') };
+  } catch (e) { return null; }
+}
+
+
+/* =====================================================================
+   Feedback: toast + dialogs
+   ===================================================================== */
+let toastTimer = null;
+function toast(msg) {
+  const el = $('#toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
+}
+
+function openDialog({ title, message, html, actions }) {
+  return new Promise(resolve => {
+    const root = $('#dialog'), box = $('#dialog-box');
+    const prevFocus = document.activeElement;
+    box.innerHTML =
+      `<h2 id="dlg-title">${esc(title)}</h2>` +
+      (message ? `<p>${esc(message)}</p>` : '') + (html || '') +
+      `<div class="modal-actions">${actions.map((a, i) => `<button class="btn ${a.cls}" data-i="${i}">${esc(a.label)}</button>`).join('')}</div>`;
+    root.classList.add('open'); root.setAttribute('aria-hidden', 'false');
+    dialogOpen = true;
+    const close = v => {
+      root.classList.remove('open'); root.setAttribute('aria-hidden', 'true');
+      root.removeEventListener('click', onClick); document.removeEventListener('keydown', onKey, true);
+      dialogOpen = false;
+      if (prevFocus && prevFocus.focus) prevFocus.focus();
+      resolve(v);
+    };
+    const onClick = e => {
+      const b = e.target.closest('button[data-i]');
+      if (b) {
+        const act = actions[+b.dataset.i];
+        if (act.validate) { const msg = act.validate(); if (msg) { toast(msg); return; } }
+        close(act.value);
+      } else if (e.target === root) close(null);
+    };
+    const onKey = e => { if (e.key === 'Escape') { e.stopPropagation(); close(null); } };
+    root.addEventListener('click', onClick);
+    document.addEventListener('keydown', onKey, true);
+    const btns = box.querySelectorAll('button[data-i]');
+    btns[btns.length - 1].focus();
+  });
+}
+
+async function askConfirm({ title, message, confirmLabel, danger }) {
+  const r = await openDialog({
+    title, message,
+    actions: [
+      { label: confirmLabel, value: true, cls: danger ? 'btn-danger' : 'btn-primary' },
+      { label: 'Cancel', value: false, cls: 'btn-ghost' }
+    ]
+  });
+  return r === true;
+}
+
+/* Protects work in progress before anything that replaces the current match. */
+async function guardDestructive({ title, message, confirmLabel }) {
+  if (!match.points.length) return true;
+  const saved = isSavedToLibrary();
+  const note = saved ? 'This match is saved in your library.' : "This match hasn't been saved to your library yet.";
+  const actions = [];
+  if (!saved) actions.push({ label: 'Save it first, then continue', value: 'save', cls: 'btn-primary' });
+  actions.push({ label: confirmLabel, value: 'go', cls: saved ? 'btn-primary' : 'btn-danger' });
+  actions.push({ label: 'Cancel', value: null, cls: 'btn-ghost' });
+  const r = await openDialog({ title, message: `${message} ${note}`, actions });
+  if (r === 'save') return saveToLibrary({ silent: true });
+  return r === 'go';
+}
+
+/* =====================================================================
+   Rendering
+   ===================================================================== */
+function mutate(fn) {
+  fn();
+  selectedPoint = null;
+  derive();
+  persistSession();
+  renderAll();
+}
+
+function renderAll() {
+  renderTutorialsCard(); renderHeader(); renderScoreboard(); renderRecord(); renderLog(); renderStats(); renderSetup(); renderLibrary();
+  if (activeTab === 'momentum') renderMomentum();
+  if (edit) renderEdit();
+}
+
+function renderHeader() {
+  const st = $('#save-status');
+  st.classList.toggle('is-error', !storageOK);
+  const time = lastAutoSave ? lastAutoSave.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) : null;
+  $('#save-text').textContent = !storageOK ? 'Auto-save unavailable' : (time ? `Auto-saved ${time}` : 'Auto-save on');
+  const btn = $('#btn-save');
+  const has = match.points.length > 0;
+  const saved = has && isSavedToLibrary();
+  btn.disabled = !has;
+  btn.classList.toggle('is-saved', saved);
+  btn.querySelector('span').textContent = saved ? 'Saved' : 'Save';
+  btn.querySelector('use').setAttribute('href', saved ? '#i-check' : '#i-save');
+}
+
+function renderScoreboard() {
+  const L = labels(), s = view.s, cfg = match.cfg, dbl = cfg.mode === 'doubles';
+  const tb = tiebreakInfo(s, cfg);
+  const ptsText = t => (tb.active ? String(s[t].points) : POINT_LABELS[s[t].points]);
+  const teamRow = t => {
+    const keys = dbl ? [t === 't1' ? 'p1a' : 'p2a', t === 't1' ? 'p1b' : 'p2b'] : [t === 't1' ? 'p1a' : 'p2a'];
+    const names = keys.map(k => {
+      const serving = !s.over && s.server === k;
+      return `<div class="pl"><svg class="icon serve-ball${serving ? ' on' : ''}" aria-hidden="true"><use href="#i-ball"/></svg><span class="nm">${esc(L[k])}</span>${serving ? '<span class="sr-only">serving</span>' : ''}</div>`;
+    }).join('');
+    const games = isTBOnly(cfg) ? '\u2013' : s[t].games;
+    return `<div class="board-row ${t}${s.over && s.winner === t ? ' winner' : ''}">
+      <div class="board-names">${names}</div>
+      <div class="board-num">${s[t].sets}</div>
+      <div class="board-num${isTBOnly(cfg) ? ' dim' : ''}">${games}</div>
+      <div class="board-pts">${ptsText(t)}</div>
+    </div>`;
+  };
+  const chips = s.setScores.length
+    ? s.setScores.map(e => `<span class="chip">${esc(fmtSet(e, false))}</span>`).join('')
+    : `<span>${isTBOnly(cfg) ? 'Single tiebreak' : (fmtOf(cfg).setsToWin === 1 ? `First to ${fmtOf(cfg).gamesToWin} games, win by 2` : 'No sets completed')}</span>`;
+  let badge;
+  if (s.over) badge = `<span class="badge final">Final</span>`;
+  else if (match.locked) badge = `<span class="badge warn">Ended</span>`;
+  else if (tb.active) badge = `<span class="badge tb">${tb.kind === 'match' ? 'Match tiebreak' : 'Tiebreak'} to ${tb.target}</span>`;
+  else if (fmtOf(cfg).noAd && s.t1.points === 3 && s.t2.points === 3) badge = `<span class="badge tb">Deciding point</span>`;
+  else badge = `<span class="badge">${fmtOf(cfg).setsToWin === 1 ? 'Pro set' : 'Set ' + (s.setScores.length + 1)}</span>`;
+  $('#scoreboard').innerHTML = `
+    <div class="board-head"><span>${dbl ? 'Teams' : 'Players'}</span><span>Sets</span><span>Games</span><span>Points</span></div>
+    ${teamRow('t1')}${teamRow('t2')}
+    <div class="board-foot"><div class="chips">${chips}</div>${badge}</div>`;
+}
+
+/* ----- Shot picker (shared by Record and Edit) ----- */
+function shotPickerHTML(scope) {
+  const chips = Array.from({ length: 10 }, (_, i) =>
+    `<button type="button" class="shot-chip" data-scope="${scope}" data-shots="${i}" aria-label="${i} shot${i === 1 ? '' : 's'}${i === 0 ? ', double fault' : ''}"><span class="n">${i}</span><span class="c">${i === 0 ? 'DF' : ''}</span></button>`).join('');
+  return `<div class="picker-head">
+      <span class="lbl" id="${scope}-lbl">Shots in the rally<small>The serve counts as shot 1</small></span>
+      <div class="stepper">
+        <button type="button" class="btn btn-secondary step" data-scope="${scope}" data-step="-1" aria-label="One fewer shot">${icon('minus')}</button>
+        <input class="shots-input" data-scope="${scope}" type="number" inputmode="numeric" min="0" max="99" aria-labelledby="${scope}-lbl">
+        <button type="button" class="btn btn-secondary step" data-scope="${scope}" data-step="1" aria-label="One more shot">${icon('plus')}</button>
+      </div>
+    </div>
+    <div class="chip-grid" role="group" aria-label="Quick pick shots">${chips}</div>`;
+}
+
+function syncPicker(scope, val, disabled) {
+  const root = $(scope === 'rec' ? '#rec-picker' : '#edit-picker');
+  root.querySelectorAll('.shot-chip').forEach(b => { b.setAttribute('aria-pressed', String(+b.dataset.shots === val)); b.disabled = disabled; });
+  const inp = root.querySelector('.shots-input');
+  if (document.activeElement !== inp) inp.value = val === null ? '' : val;
+  inp.disabled = disabled;
+  root.querySelector('[data-step="-1"]').disabled = disabled || val === null || val <= 0;
+  root.querySelector('[data-step="1"]').disabled = disabled || (val !== null && val >= 99);
+}
+
+function paintRule(el, shots, serverTeam, L) {
+  const recv = other(serverTeam);
+  let cls = 'none', html;
+  if (shots === null) {
+    html = 'Enter the number of shots to see who can win this point.';
+  } else if (shots === 0) {
+    cls = recv; html = `${icon('info')}<span><strong>Double fault.</strong> ${esc(L[recv])} wins the point.</span>`;
+  } else if (shots % 2 === 1) {
+    cls = serverTeam; html = `${icon('info')}<span><strong>${shots} shot${shots === 1 ? '' : 's'} is odd,</strong> so the server hit the last shot. ${esc(L[serverTeam])} wins.</span>`;
+  } else {
+    cls = recv; html = `${icon('info')}<span><strong>${shots} shots is even,</strong> so the returner hit the last shot. ${esc(L[recv])} wins.</span>`;
+  }
+  el.className = `rule ${cls}`;
+  el.innerHTML = html;
+}
+
+function paintWinners(id, serverTeam, winner, L, disabled) {
+  $(`#${id}`).querySelectorAll('.win-btn').forEach(btn => {
+    const t = btn.dataset.team;
+    btn.querySelector('.w-name').textContent = L[t];
+    btn.querySelector('.w-role').textContent = t === serverTeam ? 'Server' : 'Returner';
+    btn.disabled = disabled || winner !== t;
+  });
+}
+
+function renderRecord() {
+  const L = labels(), s = view.s;
+  const over = s.over, locked = match.locked;
+  const off = over || locked;
+  const serverTeam = teamOfKey(s.server);
+
+  $('#serving-note').innerHTML = off ? '' : `${icon('ball')}Serving: <strong>${esc(L[s.server])}</strong>`;
+
+  const banner = $('#lock-banner');
+  if (locked) {
+    banner.hidden = false; banner.className = 'banner';
+    banner.innerHTML = `${icon('lock')}<div><strong>${over ? 'Match complete' : 'Match ended'}</strong>Recording is locked. Reopen the match to change it.</div><button class="btn btn-secondary btn-sm" data-action="reopen">Reopen</button>`;
+  } else if (over) {
+    banner.hidden = false; banner.className = 'banner';
+    banner.innerHTML = `${icon('flag')}<div><strong>Match complete</strong>Undo the last point if it was entered by mistake.</div>`;
+  } else banner.hidden = true;
+
+  syncPicker('rec', draft.shots, off);
+  const winner = off ? null : deriveWinner(draft.shots, serverTeam);
+  if (off) { const r = $('#rec-rule'); r.className = 'rule none'; r.innerHTML = 'Recording is paused.'; }
+  else paintRule($('#rec-rule'), draft.shots, serverTeam, L);
+  paintWinners('rec-winners', serverTeam, winner, L, off);
+
+  $('#btn-undo').disabled = locked || !match.points.length;
+  $('#btn-unresolved').disabled = off;
+
+  const endBtn = $('#btn-end');
+  if (locked) { endBtn.innerHTML = `${icon('unlock')}Reopen match`; endBtn.dataset.action = 'reopen'; endBtn.disabled = false; endBtn.className = 'btn btn-secondary span-2'; }
+  else { endBtn.innerHTML = `${icon('flag')}End match and save`; endBtn.dataset.action = 'end'; endBtn.disabled = !match.points.length; endBtn.className = 'btn btn-primary span-2'; }
+  $('#btn-export-1').disabled = !match.points.length;
+  $('#btn-reset').disabled = !match.points.length;
+}
+
+function rallyTag(r) {
+  if (r.shots === null) return 'Unresolved';
+  if (r.shots === 0) return 'Double fault';
+  if (r.shots === 1) return '1 shot';
+  if (r.shots === 2) return 'Return winner';
+  if (r.shots === 3) return 'Serve +1';
+  if (r.shots === 4) return 'Return +1';
+  return `${r.shots}-shot rally`;
+}
+
+function renderLog() {
+  const el = $('#log'), L = labels(), rows = view.rows;
+  $('#log-count').textContent = rows.length ? `${rows.length} point${rows.length === 1 ? '' : 's'}` : '';
+  if (!rows.length) { el.innerHTML = '<li class="empty">No points yet. Set the rally length above and tap the winner.</li>'; return; }
+  el.innerHTML = rows.slice().reverse().map(r => {
+    const un = r.winner === null;
+    const who = un ? 'Unresolved' : L[r.winner];
+    const cls = un ? 'un' : r.winner;
+    return `<li class="log-item">
+      <span class="log-n">${r.n}</span>
+      <div>
+        <div class="log-win ${cls}"><span class="who">${esc(who)}</span><span class="tag${r.isDF ? ' df' : ''}">${esc(rallyTag(r))}</span></div>
+        <div class="log-meta">${esc(L[r.serverKey])} serving, ${esc(r.scoreText)}</div>
+      </div>
+      <button class="btn btn-secondary btn-sm" data-action="edit" data-i="${r.n - 1}" ${match.locked ? 'disabled' : ''} aria-label="${un ? 'Resolve' : 'Edit'} point ${r.n}">${icon('edit')}${un ? 'Resolve' : 'Edit'}</button>
+    </li>`;
+  }).join('');
+}
+
+/* ----- Stats ----- */
+function cmpRow(label, a, b, o = {}) {
+  const barA = o.barA !== undefined ? o.barA : a, barB = o.barB !== undefined ? o.barB : b;
+  const max = o.max !== undefined ? o.max : Math.max(barA, barB, 0);
+  const w = v => (max > 0 ? Math.round((v / max) * 100) : 0);
+  return `<div class="cmp">
+    <div class="cmp-top">
+      <div class="cmp-val">${a}${o.subA ? `<small>${o.subA}</small>` : ''}</div>
+      <div class="cmp-label">${label}</div>
+      <div class="cmp-val r">${o.subB ? `<small>${o.subB}</small>` : ''}${b}</div>
+    </div>
+    <div class="bfly"><div class="half l"><div class="fill t1" style="width:${w(barA)}%"></div></div><div class="half"><div class="fill t2" style="width:${w(barB)}%"></div></div></div>
+  </div>`;
+}
+
+function renderStats() {
+  const body = $('#stats-body');
+  if (!match.points.length) {
+    body.innerHTML = `<div class="card"><div class="empty">No stats yet. Record a few points on the Tracker tab.</div></div>`;
+    return;
+  }
+  const sm = summarize(match), L = sm.L, st = view.stats, T = st.t, cfg = match.cfg;
+  const setsText = sm.sets;
+  const badgeCls = sm.over ? 'final' : (match.locked ? 'warn' : '');
+  let detail = '';
+  if (sm.over) detail = setsText;
+  else if (setsText) detail = setsText;
+  else detail = isTBOnly(cfg) ? gameScoreText(sm.s, cfg) : '';
+
+  const rows1 = [
+    cmpRow('Points won', T.t1.won, T.t2.won, { subA: `${pct(T.t1.won, st.resolved)}%`, subB: `${pct(T.t2.won, st.resolved)}%` }),
+    cmpRow('Double faults', T.t1.df, T.t2.df)
+  ];
+  const head = isTBOnly(cfg) ? [] : [cmpRow('Games won', st.games.t1, st.games.t2)];
+  const rally = [
+    cmpRow('Short rallies (0\u20134 shots)', T.t1.b04, T.t2.b04),
+    cmpRow('Medium rallies (5\u20137 shots)', T.t1.b57, T.t2.b57),
+    cmpRow('Long rallies (8+ shots)', T.t1.b8, T.t2.b8)
+  ];
+
+  body.innerHTML = `
+    <div class="card">
+      <div class="sum-top">
+        <div><div class="sum-head">${esc(sm.headline)}</div>${detail ? `<div class="sum-detail">${esc(detail)}</div>` : ''}</div>
+        <span class="badge ${badgeCls}">${esc(sm.status)}</span>
+      </div>
+      <div class="kpis">
+        <div class="kpi"><div class="kpi-label">Points played</div><div class="kpi-value">${st.resolved}</div></div>
+        <div class="kpi"><div class="kpi-label">Average rally</div><div class="kpi-value">${st.avg}<small>shots</small></div></div>
+        <div class="kpi"><div class="kpi-label">Longest rally</div><div class="kpi-value">${st.longest}<small>shots</small></div></div>
+      </div>
+      ${st.unresolved ? `<div class="banner warn" style="margin:12px 0 0">${icon('help')}<div><strong>${st.unresolved} unresolved point${st.unresolved === 1 ? '' : 's'}</strong>Not counted in these stats. Resolve them from the point log.</div></div>` : ''}
+    </div>
+    <div class="card">
+      <h2 class="card-title" style="margin-bottom:10px">Match stats</h2>
+      <div class="cmp-legend"><span><i class="dot t1"></i><b>${esc(L.t1)}</b></span><span><b>${esc(L.t2)}</b><i class="dot t2"></i></span></div>
+      ${[...rows1.slice(0, 1), ...head, ...rows1.slice(1)].join('')}
+      <div class="group-title">Points won by rally length</div>
+      ${rally.join('')}
+    </div>
+    <div class="btn-grid">
+      <button class="btn btn-primary" data-action="export">${icon('share')}Export stats</button>
+      <button class="btn btn-secondary" data-action="save">${icon('save')}Save match</button>
+    </div>`;
+}
+
+/* ----- Momentum chart (self-contained SVG, no external libraries) ----- */
+function renderMomentum() {
+  const wrap = $('#chart');
+  const w = Math.floor(wrap.clientWidth);
+  if (!w) return;
+  const L = labels(), rows = view.rows, n = rows.length;
+  const legend = $('#chart-legend'), detail = $('#momentum-detail');
+  if (!n) {
+    wrap.innerHTML = '<div class="empty">Record a few points to see the momentum line.</div>';
+    legend.hidden = true; detail.hidden = true; return;
+  }
+  legend.hidden = false; detail.hidden = false;
+
+  const diffs = [0];
+  rows.forEach(r => diffs.push(diffs[diffs.length - 1] + (r.winner === 't1' ? 1 : r.winner === 't2' ? -1 : 0)));
+  const H = 270, mg = { l: 36, r: 14, t: 30, b: 46 };
+  const pw = w - mg.l - mg.r, ph = H - mg.t - mg.b;
+  const maxAbs = Math.max(3, ...diffs.map(Math.abs));
+  const X = i => mg.l + (i / n) * pw;
+  const Y = v => mg.t + ((maxAbs - v) / (2 * maxAbs)) * ph;
+  const zero = Y(0);
+  const step = Math.max(1, Math.ceil(maxAbs / 3));
+
+  let grid = '';
+  for (let v = -Math.floor(maxAbs / step) * step; v <= maxAbs; v += step) {
+    grid += `<line class="c-grid${v === 0 ? ' zero' : ''}" x1="${mg.l}" x2="${w - mg.r}" y1="${Y(v).toFixed(1)}" y2="${Y(v).toFixed(1)}"/>` +
+            `<text class="c-tick" x="${mg.l - 8}" y="${(Y(v) + 4).toFixed(1)}" text-anchor="end">${v > 0 ? '+' + v : v}</text>`;
+  }
+  const xs = n <= 12 ? 1 : Math.ceil(n / 8);
+  let xt = '';
+  for (let i = xs; i <= n; i += xs) xt += `<text class="c-tick" x="${X(i).toFixed(1)}" y="${H - mg.b + 16}" text-anchor="middle">${i}</text>`;
+
+  const pts = diffs.map((v, i) => `${X(i).toFixed(1)},${Y(v).toFixed(1)}`);
+  const line = 'M' + pts.join(' L');
+  const area = `${line} L${X(n).toFixed(1)},${zero.toFixed(1)} L${X(0).toFixed(1)},${zero.toFixed(1)} Z`;
+
+  let marks = '';
+  rows.forEach((r, k) => {
+    const i = k + 1, cx = X(i).toFixed(1), cy = Y(diffs[i]).toFixed(1);
+    if (r.gameEnded) marks += `<circle class="m-${r.winner} m-game" cx="${cx}" cy="${cy}" r="5.5"/>`;
+    else if (r.isDF) marks += `<circle class="m-df" cx="${cx}" cy="${cy}" r="4"/>`;
+    else if (r.winner === null) marks += `<circle class="m-un" cx="${cx}" cy="${cy}" r="4"/>`;
+    else if (n <= 40) marks += `<circle class="m-${r.winner}" cx="${cx}" cy="${cy}" r="2.5"/>`;
+  });
+
+  wrap.innerHTML = `<svg viewBox="0 0 ${w} ${H}" width="${w}" height="${H}" role="img" aria-label="Momentum chart of the running point difference">
+    <defs>
+      <clipPath id="clip-up"><rect x="0" y="0" width="${w}" height="${zero.toFixed(1)}"/></clipPath>
+      <clipPath id="clip-dn"><rect x="0" y="${zero.toFixed(1)}" width="${w}" height="${(H - zero).toFixed(1)}"/></clipPath>
+    </defs>
+    ${grid}${xt}
+    <text class="c-cap t1" x="${mg.l}" y="${mg.t - 12}">${esc(trunc(L.t1))} ahead</text>
+    <text class="c-cap t2" x="${mg.l}" y="${H - 6}">${esc(trunc(L.t2))} ahead</text>
+    <path class="c-area-up" d="${area}" clip-path="url(#clip-up)"/>
+    <path class="c-area-dn" d="${area}" clip-path="url(#clip-dn)"/>
+    <path class="c-line" d="${line}"/>
+    ${marks}
+    <g id="sel"><line class="c-sel" y1="${mg.t}" y2="${H - mg.b}"/><circle class="c-selc" r="6"/></g>
+  </svg>`;
+
+  const svg = wrap.querySelector('svg');
+  const paint = () => {
+    const i = selectedPoint === null ? n : selectedPoint;
+    const g = svg.querySelector('#sel');
+    g.querySelector('line').setAttribute('x1', X(i)); g.querySelector('line').setAttribute('x2', X(i));
+    g.querySelector('circle').setAttribute('cx', X(i)); g.querySelector('circle').setAttribute('cy', Y(diffs[i]));
+    const v = diffs[i];
+    const lead = v === 0 ? 'Even' : v > 0 ? `${esc(L.t1)} +${v}` : `${esc(L.t2)} +${-v}`;
+    if (i === 0) { detail.innerHTML = `<div class="detail-top"><strong>Match start</strong></div><div>Nothing played yet. Drag along the line to step through the match.</div>`; return; }
+    const r = rows[i - 1];
+    const who = r.winner ? esc(L[r.winner]) : 'Unresolved';
+    detail.innerHTML = `<div class="detail-top"><strong>Point ${r.n}</strong><span class="tag${r.isDF ? ' df' : ''}">${esc(rallyTag(r))}</span></div>
+      <div>Won by <strong>${who}</strong>. Momentum: ${lead}.</div>
+      <div class="log-meta">${esc(L[r.serverKey])} serving, ${esc(r.scoreText)}</div>`;
+  };
+  const pick = e => {
+    const rect = svg.getBoundingClientRect();
+    const x = (e.clientX - rect.left) * (w / rect.width);
+    selectedPoint = clamp(Math.round(((x - mg.l) / pw) * n), 0, n);
+    paint();
+  };
+  svg.addEventListener('pointerdown', pick);
+  svg.addEventListener('pointermove', pick);
+  paint();
+}
+
+/* ----- Setup ----- */
+function renderSetup() {
+  const cfg = match.cfg, L = labels(), started = match.points.length > 0;
+  $('#setup').dataset.play = cfg.mode;
+  $('#seg-mode').querySelectorAll('button').forEach(b => b.setAttribute('aria-checked', String(b.dataset.setMode === cfg.mode)));
+  $('#seg-format').innerHTML = FORMAT_ORDER.map(k =>
+    `<button type="button" class="fmt" role="radio" aria-checked="${cfg.format === k}" data-set-format="${k}"><i class="radio"></i><span><span class="fmt-name">${esc(FORMATS[k].name)}</span><span class="fmt-desc">${esc(FORMATS[k].desc)}</span></span></button>`).join('');
+  const opts = cfg.mode === 'singles' ? ['p1a', 'p2a'] : NAME_KEYS;
+  $('#first-server').innerHTML = opts.map(k =>
+    `<button class="opt" role="radio" aria-checked="${cfg.initialServer === k}" data-server="${k}" ${started ? 'disabled' : ''}>
+      <i class="dot ${teamOfKey(k)}"></i><span class="nm">${esc(L[k])}</span></button>`).join('');
+  $('#server-hint').textContent = started ? 'Locked once play starts. Reset the match to change it.' : 'The player who serves the first game.';
+}
+
+function renderLibrary() {
+  const el = $('#library');
+  if (!library.length) { el.innerHTML = `<div class="empty">No saved matches yet.</div>`; return; }
+  el.innerHTML = library.slice().sort((a, b) => b.savedAt.localeCompare(a.savedAt)).map(e => {
+    const sm = summarize(e.match), L = sm.L;
+    return `<div class="saved-item">
+      <div class="saved-top">
+        <div><div class="saved-title">${esc(L.t1)} vs ${esc(L.t2)}</div>
+        <div class="saved-meta">${esc(fmtDate(e.match.createdAt))}, ${esc(resultLine(sm, e.match.points.length))}</div></div>
+        ${e.id === match.id ? '<span class="badge">On screen</span>' : ''}
+      </div>
+      <div class="saved-actions">
+        <button class="btn btn-secondary btn-sm" data-action="lib-open" data-id="${esc(e.id)}">Open</button>
+        <button class="btn btn-secondary btn-sm" data-action="lib-export" data-id="${esc(e.id)}">Export</button>
+        <button class="btn btn-danger btn-sm" data-action="lib-delete" data-id="${esc(e.id)}" aria-label="Delete saved match">${icon('trash')}</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* =====================================================================
+   Actions
+   ===================================================================== */
+function setShots(scope, v) {
+  const val = v === null ? null : clamp(v, 0, 99);
+  if (scope === 'rec') { draft.shots = val; renderRecord(); }
+  else if (edit) { edit.shots = val; renderEdit(); }
+}
+const getShots = scope => (scope === 'rec' ? draft.shots : edit ? edit.shots : null);
+
+async function addPoint(team) {
+  if (match.locked || view.s.over) return;
+  const serverTeam = teamOfKey(view.s.server);
+  if (draft.shots === null || deriveWinner(draft.shots, serverTeam) !== team) return; // only the valid winner can be chosen
+  const shots = draft.shots;
+  draft.shots = 1;
+  mutate(() => match.points.push({ shots }));
+  await finalizeIfOver();
+}
+
+function addUnresolved() {
+  if (match.locked || view.s.over) return;
+  draft.shots = 1;
+  mutate(() => match.points.push({ shots: null }));
+  toast('Logged as unresolved. Resolve it from the point log when you know the rally length.');
+}
+
+function undoLast() {
+  if (match.locked || !match.points.length) return;
+  const n = match.points.length;
+  mutate(() => match.points.pop());
+  toast(`Removed point ${n}`);
+}
+
+async function finalizeIfOver() {
+  if (!(view.s.over && !match.locked)) return;
+  mutate(() => { match.locked = true; });
+  saveToLibrary({ silent: true });
+  const sm = summarize(match);
+  const r = await openDialog({
+    title: 'Match complete',
+    html: `<div class="result-box">${esc(sm.L[sm.winner])}<div style="font-size:18px;color:var(--text-2);font-weight:500">${esc(sm.sets)}</div></div>` +
+          `<p>The match was locked and saved to your library.</p>`,
+    actions: [{ label: 'View stats', value: 'stats', cls: 'btn-primary' }, { label: 'Stay here', value: null, cls: 'btn-ghost' }]
+  });
+  if (r === 'stats') switchTab('stats');
+}
+
+async function endMatch() {
+  if (!match.points.length || match.locked) return;
+  const un = view.stats.unresolved;
+  const ok = await askConfirm({
+    title: 'End this match?',
+    message: `Recording will lock and the match will be saved to your library. You can reopen it later.${un ? ` ${un} unresolved point${un === 1 ? ' is' : 's are'} left out of the stats.` : ''}`,
+    confirmLabel: 'End and save'
+  });
+  if (!ok) return;
+  mutate(() => { match.locked = true; });
+  saveToLibrary({ silent: true });
+  toast('Match ended and saved');
+  switchTab('stats');
+}
+
+function reopenMatch() {
+  if (!match.locked) return;
+  mutate(() => { match.locked = false; });
+  toast('Match reopened');
+}
+
+async function resetMatch() {
+  const go = await guardDestructive({ title: 'Reset match?', message: 'This clears every point and starts a new match. Players and settings stay the same. Your coaching matches, rosters and records are not affected.', confirmLabel: 'Reset match' });
+  if (!go) return;
+  draft.shots = 1;
+  mutate(() => { match = newMatch(match); });
+  toast('New match ready');
+}
+
+async function setMode(mode) {
+  if (mode === match.cfg.mode) return;
+  const go = await guardDestructive({ title: 'Change play mode?', message: 'Switching between singles and doubles clears the points recorded so far.', confirmLabel: 'Clear and switch' });
+  if (!go) return;
+  mutate(() => {
+    const keep = match.points.length ? newMatch(match) : match;
+    match = keep;
+    match.cfg.mode = mode;
+    if (mode === 'singles') match.cfg.initialServer = teamOfKey(match.cfg.initialServer) === 't1' ? 'p1a' : 'p2a';
+  });
+}
+
+async function setFormat(format) {
+  if (format === match.cfg.format) return;
+  const go = await guardDestructive({ title: 'Change match format?', message: 'Changing the format clears the points recorded so far.', confirmLabel: 'Clear and switch' });
+  if (!go) return;
+  mutate(() => {
+    const keep = match.points.length ? newMatch(match) : match;
+    match = keep;
+    match.cfg.format = format;
+  });
+}
+
+function setFirstServer(key) {
+  if (match.points.length) return;
+  mutate(() => { match.cfg.initialServer = key; });
+}
+
+/* ----- Edit modal ----- */
+function openEdit(i) {
+  if (match.locked) { toast('This match is locked. Reopen it to edit points.'); return; }
+  const r = view.rows[i]; if (!r) return;
+  edit = { index: i, shots: r.shots };
+  $('#edit-picker').innerHTML = shotPickerHTML('edit');
+  $('#edit-modal').classList.add('open'); $('#edit-modal').setAttribute('aria-hidden', 'false');
+  renderEdit();
+  const inp = $('#edit-picker .shots-input');
+  if (inp) inp.focus({ preventScroll: true });
+}
+function closeEdit() {
+  edit = null;
+  $('#edit-modal').classList.remove('open'); $('#edit-modal').setAttribute('aria-hidden', 'true');
+}
+function renderEdit() {
+  if (!edit) return;
+  const r = view.rows[edit.index]; if (!r) { closeEdit(); return; }
+  const L = labels(), serverTeam = r.serverTeam;
+  $('#edit-title').textContent = `${r.shots === null ? 'Resolve' : 'Edit'} point ${r.n}`;
+  $('#edit-sub').textContent = `${L[r.serverKey]} was serving.${r.shots === null ? ' This point is unresolved.' : ''}`;
+  syncPicker('edit', edit.shots, false);
+  paintRule($('#edit-rule'), edit.shots, serverTeam, L);
+  paintWinners('edit-winners', serverTeam, deriveWinner(edit.shots, serverTeam), L, false);
+}
+async function commitEdit(team) {
+  if (!edit) return;
+  const r = view.rows[edit.index];
+  if (edit.shots === null || deriveWinner(edit.shots, r.serverTeam) !== team) return;
+  const pts = match.points.map(p => ({ shots: p.shots }));
+  pts[edit.index].shots = edit.shots;
+  const test = replay(match.cfg, pts);
+  if (test.ignored > 0) {
+    const ok = await askConfirm({
+      title: 'This edit ends the match earlier',
+      message: `With this change the match finishes at point ${test.rows.length}. The ${test.ignored} later point${test.ignored === 1 ? '' : 's'} will be removed.`,
+      confirmLabel: 'Apply edit', danger: true
+    });
+    if (!ok) return;
+    pts.length = test.rows.length;
+  }
+  closeEdit();
+  mutate(() => { match.points = pts; });
+  toast(`Point ${r.n} updated`);
+  await finalizeIfOver();
+}
+async function deleteEditedPoint() {
+  if (!edit) return;
+  const n = edit.index + 1;
+  const ok = await askConfirm({ title: `Delete point ${n}?`, message: 'The point is removed and the score is recalculated. This can\u2019t be undone.', confirmLabel: 'Delete point', danger: true });
+  if (!ok) return;
+  const i = edit.index;
+  closeEdit();
+  mutate(() => { match.points.splice(i, 1); });
+  toast(`Deleted point ${n}`);
+}
+
+/* ----- Library ----- */
+async function openSaved(id) {
+  const e = library.find(x => x.id === id); if (!e) return;
+  if (e.id !== match.id) {
+    const go = await guardDestructive({ title: 'Open saved match?', message: 'The match on screen will be replaced.', confirmLabel: 'Open match' });
+    if (!go) return;
+  }
+  draft.shots = 1;
+  mutate(() => { match = sanitizeMatch(JSON.parse(JSON.stringify(e.match))); });
+  syncNameInputs();
+  toast('Match opened');
+  switchTab(match.locked ? 'stats' : 'tracker');
+}
+async function deleteSaved(id) {
+  const e = library.find(x => x.id === id); if (!e) return;
+  const L = labelsFor(e.match);
+  const ok = await askConfirm({ title: 'Delete saved match?', message: `${L.t1} vs ${L.t2} will be removed from your library.`, confirmLabel: 'Delete', danger: true });
+  if (!ok) return;
+  adoptLateLibrary();
+  library = library.filter(x => x.id !== id);
+  lsSet(KEY_LIBRARY, JSON.stringify(library));
+  renderHeader(); renderLibrary();
+  toast('Saved match deleted');
+}
+
+/* =====================================================================
+   Export: match statistics as CSV (no point-by-point rows)
+   ===================================================================== */
+function buildReportCSV(m) {
+  const sm = summarize(m), L = sm.L, s = sm.s;
+  const st = computeStats(m.cfg, sm.rows, s), T = st.t;
+  const out = [];
+  const add = (...c) => out.push(c.map(csvCell).join(','));
+  const blank = () => out.push('');
+  const p = (a, b) => `${pct(a, b)}%`;
+
+  add('T.L. Hanna Tennis Tracker: Match Report');
+  add('Date', localISODate(m.createdAt));
+  add('Match type', m.cfg.mode === 'doubles' ? 'Doubles' : 'Singles');
+  add('Format', FORMAT_LABEL[m.cfg.format]);
+  add('Status', sm.status);
+  add('Result', sm.over ? `${L[s.winner]} won ${sm.sets}`.trim() : sm.headline);
+  blank();
+
+  add('Score by set', L.t1, L.t2, 'Notes');
+  let setNo = 0;
+  s.setScores.forEach(e => {
+    if (e.matchTiebreak) add('Match tiebreak', e.t1, e.t2, '');
+    else { setNo++; add(`Set ${setNo}`, e.t1, e.t2, e.tiebreak ? `Tiebreak ${e.tiebreak.t1}\u2013${e.tiebreak.t2}` : ''); }
+  });
+  if (!s.over && (s.t1.games || s.t2.games || s.t1.points || s.t2.points)) {
+    const tb = tiebreakInfo(s, m.cfg);
+    if (isTBOnly(m.cfg) || tb.kind === 'match') add('Match tiebreak (in progress)', s.t1.points, s.t2.points, '');
+    else add(`Set ${setNo + 1} (in progress)`, s.t1.games, s.t2.games, '');
+  }
+  blank();
+
+  add('Team statistics', L.t1, L.t2);
+  add('Sets won', st.sets.t1, st.sets.t2);
+  if (!isTBOnly(m.cfg)) add('Games won', st.games.t1, st.games.t2);
+  add('Points won', T.t1.won, T.t2.won);
+  add('Points won %', p(T.t1.won, st.resolved), p(T.t2.won, st.resolved));
+  add('Double faults', T.t1.df, T.t2.df);
+  blank();
+
+  add('Points won by rally length', L.t1, L.t2, `${L.t1} share`, `${L.t2} share`);
+  [['Short (0\u20134 shots)', 'b04'], ['Medium (5\u20137 shots)', 'b57'], ['Long (8+ shots)', 'b8']].forEach(([label, k]) => {
+    const tot = T.t1[k] + T.t2[k];
+    add(label, T.t1[k], T.t2[k], p(T.t1[k], tot), p(T.t2[k], tot));
+  });
+  blank();
+
+  add('Match totals', 'Value');
+  add('Points played', st.resolved);
+  add('Unresolved points (not counted)', st.unresolved);
+  add('Average rally length (shots)', st.avg);
+  add('Longest rally (shots)', st.longest);
+  return '\uFEFF' + out.join('\r\n');
+}
+
+async function deliverFile(filename, text, mime, doneMsg) {
+  const coarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+  if (coarse && navigator.canShare && navigator.share) {
+    try {
+      const file = new File([text], filename, { type: mime });
+      if (navigator.canShare({ files: [file] })) {
+        await navigator.share({ title: 'T.L. Hanna Tennis', files: [file] });
+        toast('Shared');
+        return;
+      }
+    } catch (err) {
+      if (err && err.name === 'AbortError') return; // person closed the share sheet
+    }
+  }
+  const blob = new Blob([text], { type: mime + ';charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1500);
+  toast(doneMsg);
+}
+const deliverCSV = (filename, csv) => deliverFile(filename, csv, 'text/csv', 'Exported as CSV');
+
+function exportMatch(m) {
+  if (!m.points.length) { toast('Nothing to export yet.'); return; }
+  const L = labelsFor(m);
+  const slug = t => t.replace(/[^A-Za-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 24) || 'Player';
+  deliverCSV(`TL-Hanna_${slug(L.t1)}_vs_${slug(L.t2)}_${localISODate(m.createdAt)}.csv`, buildReportCSV(m));
+}
+
+/* =====================================================================
+   Navigation & events
+   ===================================================================== */
+function switchTab(name) {
+  activeTab = name;
+  document.body.dataset.tab = name;
+  document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
+  document.querySelectorAll('.wrap > .tab-panel').forEach(p => p.classList.toggle('active', p.id === `tab-${name}`));
+  $('#main').scrollTop = 0;
+  if (name === 'momentum') renderMomentum();
+  if (name === 'coach') renderCoach();
+}
+
+function syncNameInputs() {
+  NAME_KEYS.forEach(k => { $(`#name-${k}`).value = match.names[k] || ''; });
+}
+
+const ACTIONS = {
+  save: () => saveToLibrary(),
+  win: el => addPoint(el.dataset.team),
+  unresolved: () => addUnresolved(),
+  undo: () => undoLast(),
+  end: () => endMatch(),
+  reopen: () => reopenMatch(),
+  reset: () => resetMatch(),
+  export: () => exportMatch(match),
+  edit: el => openEdit(+el.dataset.i),
+  'edit-win': el => commitEdit(el.dataset.team),
+  'edit-delete': () => deleteEditedPoint(),
+  'edit-cancel': () => closeEdit(),
+  'lib-open': el => openSaved(el.dataset.id),
+  'lib-export': el => { const e = library.find(x => x.id === el.dataset.id); if (e) exportMatch(e.match); },
+  'lib-delete': el => deleteSaved(el.dataset.id)
+};
+
+/* =====================================================================
+   Coaching screen: matches, region teams, roster and lineup
+   ===================================================================== */
+let mUI = { sub: 'matches', dualId: null, creating: false, form: null };
+let rUI = { editId: null };
+const COACH_SUBS = ['matches', 'region', 'roster', 'lineup'];
+
+function renderDatalists() { const el = $('#datalists'); if (el) el.innerHTML = datalistsHTML(); }
+function datalistsHTML() {
+  return `<datalist id="region-list">${coach.teams.map(t => `<option value="${esc(t.name)}"></option>`).join('')}</datalist>` +
+    LEVELS.map(l => `<datalist id="roster-${l}">${coach.roster[l].map(p => `<option value="${esc(p.name)}"></option>`).join('')}</datalist>`).join('');
+}
+function levelSwitch(counts) {
+  return `<div class="seg level-seg" role="radiogroup" aria-label="Team level">${LEVELS.map(l =>
+    `<button type="button" role="radio" aria-checked="${coach.level === l}" data-action="set-level" data-level="${l}">${LEVEL_NAME[l]}${counts ? ` <span class="cnt">${coach.roster[l].length}</span>` : ''}</button>`).join('')}</div>`;
+}
+const initials = name => { const p = String(name).trim().split(/\s+/).filter(Boolean); return ((p[0] || '').charAt(0) + (p.length > 1 ? p[p.length - 1].charAt(0) : '')).toUpperCase(); };
+const exportBtn = () => (hasCoachData() ? `<button type="button" class="btn btn-secondary btn-block" data-action="export-season">${icon('share')}Export stats (CSV)</button>` : '');
+
+function renderCoach() {
+  const root = $('#coach'); if (!root) return;
+  const d = mUI.dualId ? findDual(mUI.dualId) : null;
+  if (mUI.dualId && !d) mUI.dualId = null;
+  root.innerHTML = d ? renderDualPage(d) : renderCoachHome();
+}
+
+/* ----- Record board ----- */
+function formDots(level) {
+  const list = dualsFor(level).map(d => ({ d, o: dualOutcome(d) })).filter(x => x.o.decided)
+    .sort((a, b) => a.d.date.localeCompare(b.d.date) || a.d.id.localeCompare(b.d.id)).slice(-5);
+  if (!list.length) return '<span>No finished matches yet</span>';
+  return `<div class="form-dots" role="img" aria-label="Last ${list.length} results">${list.map(x => `<span class="form-dot ${x.o.winner === 'tl' ? 'w' : 'l'}">${x.o.winner === 'tl' ? 'W' : 'L'}</span>`).join('')}</div>`;
+}
+function recRow(label, sub, r, cls) {
+  const n = r.w + r.l;
+  return `<div class="board-row ${cls}"><div class="board-names"><span class="rec-name">${label}</span><span class="rec-sub">${sub}</span></div><div class="board-num">${r.w}</div><div class="board-num">${r.l}</div><div class="board-pts">${n ? pct(r.w, n) + '%' : '\u2013'}</div></div>`;
+}
+function recordBoard(level) {
+  const rec = coachRecords(level);
+  return `<div class="board record-grid" role="group" aria-label="${LEVEL_NAME[level]} record">
+    <div class="board-head"><span>${LEVEL_NAME[level]} record</span><span>W</span><span>L</span><span>Win</span></div>
+    ${recRow('Overall', 'Every finished match', rec.all, level === 'jv' ? 't2' : 't1')}
+    ${recRow('Region', 'Against region schools', rec.region, 'rg')}
+    ${recRow('Non-region', 'Against everyone else', rec.non, 'rg')}
+    <div class="board-foot"><span>Recent</span>${formDots(level)}</div>
+  </div>`;
+}
+
+function renderCoachHome() {
+  const l = coach.level, sub = mUI.sub;
+  const subBtn = (k, label) => `<button type="button" role="radio" aria-checked="${sub === k}" data-action="matches-sub" data-sub="${k}">${label}</button>`;
+  const body = sub === 'region' ? renderRegionTeams() : sub === 'roster' ? renderRosterList() : sub === 'lineup' ? renderLineup() : renderDualList();
+  return `${levelSwitch(sub === 'roster' || sub === 'lineup')}
+    ${sub === 'matches' || sub === 'region' ? recordBoard(l) : ''}
+    <div class="seg subnav" role="radiogroup" aria-label="Coaching sections">${subBtn('matches', 'Matches')}${subBtn('region', 'Region')}${subBtn('roster', 'Roster')}${subBtn('lineup', 'Lineup')}</div>
+    ${body}`;
+}
+
+function newDualForm() {
+  const f = mUI.form;
+  return `<div class="new-form">
+    <div class="field"><label for="cf-opp">School we are playing</label>
+      <input class="input" id="cf-opp" data-c="form-opp" list="region-list" maxlength="40" placeholder="School name" autocomplete="off" value="${esc(f.opp)}"></div>
+    <div class="field"><label for="cf-date">Date</label>
+      <input class="input" id="cf-date" type="date" data-c="form-date" value="${esc(f.date)}"></div>
+    <div class="field"><span class="lbl" id="cf-type-lbl">Type</span>
+      <div class="seg" role="radiogroup" aria-labelledby="cf-type-lbl" id="cf-region">
+        <button type="button" role="radio" data-action="form-region" data-region="1" aria-checked="${f.region}">Region</button>
+        <button type="button" role="radio" data-action="form-region" data-region="0" aria-checked="${!f.region}">Non-region</button>
+      </div></div>
+    <div class="btn-grid">
+      <button type="button" class="btn btn-primary" data-action="create-dual">Create ${LEVEL_NAME[coach.level]} match</button>
+      <button type="button" class="btn btn-ghost" data-action="cancel-new">Cancel</button>
+    </div>
+  </div>`;
+}
+function paintFormRegion() {
+  const f = mUI.form; if (!f) return;
+  document.querySelectorAll('#cf-region button').forEach(b => b.setAttribute('aria-checked', String((b.dataset.region === '1') === f.region)));
+}
+
+function outcomeBadge(o) {
+  if (o.winner === 'tl') return '<span class="badge final">Win</span>';
+  if (o.winner === 'opp') return '<span class="badge tb">Loss</span>';
+  return `<span class="badge muted">${o.needD1 ? 'Play 1 Doubles' : 'In progress'}</span>`;
+}
+const typeChip = d => `<span class="tagchip${d.isRegion ? ' region' : ''}">${d.isRegion ? 'Region' : 'Non-region'}</span>`;
+
+function renderDualList() {
+  const list = dualsFor(coach.level).sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id));
+  const rows = list.map(d => {
+    const o = dualOutcome(d);
+    const cls = o.winner === 'tl' ? 'win' : o.winner === 'opp' ? 'loss' : '';
+    const state = o.winner === 'tl' ? 'Win' : o.winner === 'opp' ? 'Loss' : (o.needD1 ? 'Play 1 Doubles' : 'In progress');
+    return `<button type="button" class="dual-row ${cls}${o.needD1 && !o.winner ? ' d1' : ''}" data-action="open-dual" data-id="${esc(d.id)}">
+      <span class="dual-main"><span class="dual-name">vs ${esc(d.opponent || 'Opponent')}</span><span class="dual-meta"><span>${esc(fmtDayShort(d.date))}</span>${typeChip(d)}</span></span>
+      <span class="dual-res"><span class="dual-score">${o.tl}\u2013${o.opp}</span><span class="dual-state">${state}</span></span></button>`;
+  }).join('');
+  return `<div class="card">
+    <div class="card-head"><h2 class="card-title">${LEVEL_NAME[coach.level]} matches</h2><button type="button" class="btn btn-primary btn-sm" data-action="new-dual">${icon('plus')}New match</button></div>
+    ${mUI.creating ? newDualForm() : ''}
+    ${rows ? `<div class="dual-list">${rows}</div>` : (mUI.creating ? '' : `<div class="empty"><p>No ${LEVEL_NAME[coach.level]} matches yet. Tap New match to add your first one.</p></div>`)}
+    ${exportBtn()}
+  </div>`;
+}
+
+function renderRegionTeams() {
+  const rows = coach.teams.slice().sort((a, b) => a.name.localeCompare(b.name)).map(t => {
+    const r = teamRecord(t, coach.level);
+    return `<div class="team-row"><span class="team-av">${esc(initials(t.name))}</span><div class="team-name">${esc(t.name)}</div><div class="team-rec" title="${LEVEL_NAME[coach.level]} record against ${esc(t.name)}">${r.w}\u2013${r.l}</div>
+      <button type="button" class="icon-btn danger" data-action="team-remove" data-id="${esc(t.id)}" aria-label="Remove ${esc(t.name)}">${icon('trash')}</button></div>`;
+  }).join('');
+  return `<div class="card">
+    <h2 class="card-title">Region teams</h2>
+    <p class="card-sub">Add the schools in your region. Matches against them count toward your region record, for both Varsity and JV.</p>
+    <div class="add-row">
+      <input class="input" id="team-input" data-c="team-name" maxlength="40" placeholder="School name" autocomplete="off" enterkeyhint="done" aria-label="Region school name">
+      <button type="button" class="btn btn-primary" data-action="team-add">Add</button>
+    </div>
+    ${rows ? `<div class="team-list">${rows}</div><p class="hint" style="margin-top:10px">The score beside each school is our ${LEVEL_NAME[coach.level]} record against them.</p>` : '<div class="empty"><p>No region teams yet. Add the schools you play in your region.</p></div>'}
+  </div>`;
+}
+
+/* ----- One dual ----- */
+function dualStatusText(o, oppName) {
+  if (o.winner === 'tl') return `TL Hanna wins ${o.tl}\u2013${o.opp}`;
+  if (o.winner === 'opp') return `${oppName} wins ${o.opp}\u2013${o.tl}`;
+  if (o.needD1) return 'Tied 3\u20133. Play 1 Doubles to decide the match.';
+  return `First team to ${POINTS_TO_WIN} points wins.`;
+}
+
+function lineCardHTML(d, k) {
+  const line = d.lines[k], dbl = isDoublesLine(k);
+  const cls = line.result === 'tl' ? ' won' : line.result === 'opp' ? ' lost' : '';
+  const nameInputs = (side, list) => (dbl ? [0, 1] : [0]).map(i => {
+    const who = side === 'tl' ? 'TL Hanna' : 'opponent';
+    const role = dbl && i === 1 ? 'partner' : 'player';
+    return `<input class="input" data-c="line-name" data-line="${k}" data-side="${side}" data-i="${i}" ${list ? `list="${list}"` : ''} maxlength="28" autocomplete="off" placeholder="${role === 'partner' ? 'Partner' : 'Player'}" value="${esc(line[side][i])}" aria-label="${LINE_TITLE[k]} ${who} ${role}">`;
+  }).join('');
+  const status = line.result === 'tl' ? '<span class="badge final">TL Hanna +1</span>'
+    : line.result === 'opp' ? '<span class="badge tb">Opponent +1</span>'
+    : line.score ? '<span class="badge warn">Pick a winner</span>' : '<span class="badge muted">Not played</span>';
+  return `<div class="line-card${cls}">
+    <div class="line-head"><h3 class="line-title">${LINE_TITLE[k]}</h3>${status}</div>
+    <div class="pl-grid">
+      <div class="pl-col"><div class="pl-lbl"><i class="dot t1"></i>TL Hanna</div>${nameInputs('tl', `roster-${d.level}`)}</div>
+      <div class="pl-col"><div class="pl-lbl"><i class="dot t2"></i><span class="js-opp">${esc((d.opponent || '').trim() || 'Opponent')}</span></div>${nameInputs('opp', '')}</div>
+    </div>
+    <div class="res-seg" role="group" aria-label="${LINE_TITLE[k]} winner">
+      <button type="button" class="res-btn tl" data-action="set-result" data-line="${k}" data-res="tl" aria-pressed="${line.result === 'tl'}">TL Hanna won</button>
+      <button type="button" class="res-btn opp" data-action="set-result" data-line="${k}" data-res="opp" aria-pressed="${line.result === 'opp'}">Opponent won</button>
+    </div>
+    <input class="input" data-c="line-score" data-line="${k}" maxlength="40" autocomplete="off" autocapitalize="none" placeholder="Score, for example 6-2, 6-4" value="${esc(line.score)}" aria-label="${LINE_TITLE[k]} score">
+  </div>`;
+}
+
+function renderDualPage(d) {
+  const o = dualOutcome(d), oppName = (d.opponent || '').trim() || 'Opponent';
+  const showD1 = o.needD1 || hasLineData(d.lines.d1);
+  const keys = showD1 ? LINE_KEYS : SIX_KEYS;
+  return `<div class="dual-top">
+      <button type="button" class="btn btn-ghost btn-sm" data-action="back">${icon('back')}All matches</button>
+      <button type="button" class="btn btn-danger btn-sm" data-action="delete-dual">${icon('trash')}Delete</button>
+    </div>
+    <div class="card board-card">
+      <div class="dual-level"><span class="badge${d.level === 'jv' ? ' tb' : ''}" style="${d.level === 'jv' ? 'background:var(--blue-dim);color:var(--blue)' : ''}">${LEVEL_NAME[d.level]}</span><span>${esc(fmtDay(d.date))}</span>${typeChip(d)}</div>
+      <div class="dual-board">
+        <div class="dual-team tl"><div class="nm">TL Hanna</div><div class="pt">${o.tl}</div></div>
+        <div class="dual-dash">\u2013</div>
+        <div class="dual-team opp"><div class="nm js-opp">${esc(oppName)}</div><div class="pt">${o.opp}</div></div>
+      </div>
+      <div class="dual-status">${outcomeBadge(o)}<span>${esc(dualStatusText(o, oppName))}</span></div>
+    </div>
+    <p class="hint" style="margin:-4px 4px 0">Tap who won each line and type the score. It's fine to leave the score blank.</p>
+    <div class="lines-grid">${keys.map(k => lineCardHTML(d, k)).join('')}</div>
+    ${!o.needD1 && hasLineData(d.lines.d1) ? '<p class="hint">1 Doubles only counts when the match is tied 3\u20133.</p>' : ''}
+    <div class="card">
+      <h2 class="card-title">Match details</h2>
+      <div class="stack-sm">
+        <div class="field"><label for="d-opp">School we are playing</label>
+          <input class="input" id="d-opp" data-c="dual-opp" list="region-list" maxlength="40" placeholder="School name" autocomplete="off" value="${esc(d.opponent)}"></div>
+        <div class="field"><label for="d-date">Date</label>
+          <input class="input" id="d-date" type="date" data-c="dual-date" value="${esc(d.date)}"></div>
+        <div class="field"><span class="lbl" id="d-type-lbl">Type</span>
+          <div class="seg" role="radiogroup" aria-labelledby="d-type-lbl" id="d-region">
+            <button type="button" role="radio" data-action="dual-region" data-region="1" aria-checked="${d.isRegion}">Region</button>
+            <button type="button" role="radio" data-action="dual-region" data-region="0" aria-checked="${!d.isRegion}">Non-region</button>
+          </div></div>
+        <div class="field"><span class="lbl" id="d-level-lbl">Level</span>
+          <div class="seg" role="radiogroup" aria-labelledby="d-level-lbl" id="d-level">
+            ${LEVELS.map(l => `<button type="button" role="radio" data-action="dual-level" data-level="${l}" aria-checked="${d.level === l}">${LEVEL_NAME[l]}</button>`).join('')}
+          </div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2 class="card-title" style="margin-bottom:10px">Notes</h2>
+      <textarea class="input" data-c="dual-notes" maxlength="600" placeholder="Scouting notes, lineup changes, anything to remember" aria-label="Match notes">${esc(d.notes)}</textarea>
+    </div>`;
+}
+const paintDual = (id, attr, val) => document.querySelectorAll(`#${id} button`).forEach(b => b.setAttribute('aria-checked', String(b.dataset[attr] === val)));
+
+/* ----- Roster and lineup ----- */
+const gradeOptions = sel => `<option value="">Grade</option>${GRADES.map(g => `<option value="${g}"${sel === g ? ' selected' : ''}>${gradeLabel(g)}</option>`).join('')}`;
+
+function playerRow(p, i, n) {
+  const r = playerRecord(coach.level, p.name);
+  const meta = (p.grade ? `<span>${gradeLabel(p.grade)}</span>` : '') + (r.w + r.l ? `<span class="rp-rec">Lines ${r.w}\u2013${r.l}</span>` : '') + (p.notes ? `<span class="note">${esc(p.notes)}</span>` : '');
+  return `<div class="rp-row">
+    <span class="rp-rank">${i + 1}</span>
+    <span class="rp-av${coach.level === 'jv' ? ' jv' : ''}">${esc(initials(p.name))}</span>
+    <div class="rp-info"><div class="rp-name">${esc(p.name)}</div>${meta ? `<div class="rp-meta">${meta}</div>` : ''}</div>
+    <div class="rp-tools">
+      <button type="button" class="icon-btn" data-action="roster-up" data-id="${esc(p.id)}" aria-label="Move ${esc(p.name)} up"${i === 0 ? ' disabled' : ''}>${icon('up')}</button>
+      <button type="button" class="icon-btn" data-action="roster-down" data-id="${esc(p.id)}" aria-label="Move ${esc(p.name)} down"${i === n - 1 ? ' disabled' : ''}>${icon('down')}</button>
+      <button type="button" class="icon-btn" data-action="roster-edit" data-id="${esc(p.id)}" aria-label="Edit ${esc(p.name)}">${icon('edit')}</button>
+    </div></div>`;
+}
+function editRow(p) {
+  return `<div class="edit-form">
+    <div class="field"><label for="rp-e-name">Name</label><input class="input" id="rp-e-name" maxlength="40" autocomplete="off" value="${esc(p.name)}"></div>
+    <div class="field"><label for="rp-e-grade">Grade</label><select class="input" id="rp-e-grade">${gradeOptions(p.grade)}</select></div>
+    <div class="field"><label for="rp-e-notes">Notes</label><input class="input" id="rp-e-notes" maxlength="80" autocomplete="off" placeholder="Optional" value="${esc(p.notes)}"></div>
+    <div class="btn-grid">
+      <button type="button" class="btn btn-primary" data-action="roster-save" data-id="${esc(p.id)}">Save</button>
+      <button type="button" class="btn btn-ghost" data-action="roster-cancel">Cancel</button>
+    </div>
+    <button type="button" class="btn btn-danger btn-block" style="margin-top:0" data-action="roster-delete" data-id="${esc(p.id)}">${icon('trash')}Remove from roster</button>
+  </div>`;
+}
+function renderRosterList() {
+  const l = coach.level, list = coach.roster[l];
+  const rows = list.map((p, i) => (p.id === rUI.editId ? editRow(p) : playerRow(p, i, list.length))).join('');
+  return `<div class="card">
+    <div class="card-head"><h2 class="card-title">${LEVEL_NAME[l]} roster</h2><span class="card-sub">${list.length} player${list.length === 1 ? '' : 's'}</span></div>
+    <div class="roster-add">
+      <input class="input" id="rp-new-name" maxlength="40" placeholder="Player name" autocomplete="off" enterkeyhint="done" aria-label="New player name">
+      <select class="input" id="rp-new-grade" aria-label="Grade">${gradeOptions('')}</select>
+      <button type="button" class="btn btn-primary" data-action="roster-add" aria-label="Add player">${icon('plus')}Add</button>
+    </div>
+    ${rows ? `<div class="rp-list">${rows}</div><p class="hint" style="margin-top:12px">Your order is your ladder. Use the arrows to move a player. The line record comes from the results in your matches.</p>`
+           : `<div class="empty"><p>No ${LEVEL_NAME[l]} players yet. Type a name above and tap Add.</p></div>`}
+    ${exportBtn()}
+  </div>`;
+}
+function renderLineup() {
+  const l = coach.level, lu = coach.lineup[l], list = `roster-${l}`;
+  const one = k => `<div class="lu-row"><label class="lu-label" for="lu-${k}-0">${LINE_TITLE[k]}</label>
+    <input class="input" id="lu-${k}-0" data-c="lineup" data-key="${k}" data-i="0" list="${list}" maxlength="28" placeholder="Player" autocomplete="off" value="${esc(lu[k][0])}"></div>`;
+  const two = k => `<div class="lu-row"><label class="lu-label" for="lu-${k}-0">${LINE_TITLE[k]}</label>
+    <div class="lu-pair">
+      <input class="input" id="lu-${k}-0" data-c="lineup" data-key="${k}" data-i="0" list="${list}" maxlength="28" placeholder="Player" autocomplete="off" value="${esc(lu[k][0])}" aria-label="${LINE_TITLE[k]} player">
+      <input class="input" data-c="lineup" data-key="${k}" data-i="1" list="${list}" maxlength="28" placeholder="Partner" autocomplete="off" value="${esc(lu[k][1])}" aria-label="${LINE_TITLE[k]} partner">
+    </div></div>`;
+  return `<div class="card">
+    <h2 class="card-title">${LEVEL_NAME[l]} lineup</h2>
+    <p class="card-sub">Set your usual ${LEVEL_NAME[l]} lineup. New ${LEVEL_NAME[l]} matches start with these players, and you can change them in any match. Start typing to pick from your roster.</p>
+    ${['s1', 's2', 's3', 's4', 's5'].map(one).join('')}${two('d2')}${two('d1')}
+    <p class="hint">1 Doubles is only played when the match is tied 3\u20133.</p>
+  </div>`;
+}
+
+/* ----- Actions ----- */
+function showCoachSub(sub) { mUI.dualId = null; mUI.sub = sub; mUI.creating = false; rUI.editId = null; renderCoach(); }
+const resetCoachHome = () => showCoachSub('matches');
+const showRoster = () => showCoachSub('roster');
+const showLineup = () => showCoachSub('lineup');
+
+function startNewDual() {
+  mUI.creating = true;
+  mUI.form = { opp: '', date: todayISO(), region: false, touched: false };
+  renderCoach();
+  const el = $('#cf-opp'); if (el) el.focus();
+}
+function createDual() {
+  const f = mUI.form; if (!f) return;
+  const opp = f.opp.trim();
+  if (!opp) { toast('Enter the school we are playing.'); const el = $('#cf-opp'); if (el) el.focus(); return; }
+  const team = teamByName(opp);
+  const d = { id: newId(), level: coach.level, date: f.date || todayISO(), opponent: team ? team.name : opp, isRegion: team ? true : f.region, teamId: team ? team.id : null, notes: '', lines: emptyLines(coach.level) };
+  coach.duals.unshift(d);
+  mUI.creating = false; mUI.form = null; mUI.dualId = d.id;
+  saveCoach(); renderCoach(); $('#main').scrollTop = 0;
+}
+async function deleteDual() {
+  const d = findDual(mUI.dualId); if (!d) return;
+  const ok = await askConfirm({ title: 'Delete this match?', message: `${LEVEL_NAME[d.level]} vs ${d.opponent || 'Opponent'} and all of its line results will be removed.`, confirmLabel: 'Delete match', danger: true });
+  if (!ok) return;
+  coach.duals = coach.duals.filter(x => x.id !== d.id);
+  mUI.dualId = null; saveCoach(); renderCoach(); $('#main').scrollTop = 0;
+  toast('Match deleted');
+}
+function setLineResult(k, res) {
+  const d = findDual(mUI.dualId); if (!d) return;
+  const line = d.lines[k]; if (!line) return;
+  line.result = line.result === res ? null : res;
+  saveCoach(); renderCoach();
+}
+function addTeam() {
+  const inp = $('#team-input'); if (!inp) return;
+  const name = inp.value.trim().slice(0, 40);
+  if (!name) { toast('Enter a school name.'); inp.focus(); return; }
+  if (teamByName(name)) { toast(`${name} is already in your region list.`); inp.focus(); return; }
+  const t = { id: newId(), name };
+  coach.teams.push(t);
+  // link earlier matches against this school, including ones that pointed at a school that was removed
+  coach.duals.forEach(d => {
+    const stale = d.teamId && !coach.teams.some(x => x.id === d.teamId);
+    if ((!d.teamId || stale) && d.opponent.trim().toLowerCase() === name.toLowerCase()) { d.teamId = t.id; d.isRegion = true; }
+  });
+  saveCoach(); renderCoach();
+  const again = $('#team-input'); if (again) again.focus();
+}
+async function removeTeam(id) {
+  const t = coach.teams.find(x => x.id === id); if (!t) return;
+  const ok = await askConfirm({ title: 'Remove region team?', message: `${t.name} will be removed from your region list. Past matches keep their region label.`, confirmLabel: 'Remove', danger: true });
+  if (!ok) return;
+  coach.teams = coach.teams.filter(x => x.id !== id);
+  saveCoach(); renderCoach();
+}
+
+/* Roster */
+function addPlayer() {
+  const inp = $('#rp-new-name'), gr = $('#rp-new-grade'); if (!inp) return;
+  const name = inp.value.trim().slice(0, 40);
+  if (!name) { toast('Enter a player name.'); inp.focus(); return; }
+  const list = coach.roster[coach.level];
+  if (list.some(p => p.name.toLowerCase() === name.toLowerCase())) { toast(`${name} is already on the ${LEVEL_NAME[coach.level]} roster.`); inp.focus(); return; }
+  list.push({ id: newId(), name, grade: GRADES.includes(gr.value) ? gr.value : '', notes: '' });
+  saveCoach(); renderCoach();
+  const again = $('#rp-new-name'); if (again) again.focus();
+}
+function movePlayer(id, dir) {
+  const list = coach.roster[coach.level], i = list.findIndex(p => p.id === id), j = i + dir;
+  if (i < 0 || j < 0 || j >= list.length) return;
+  [list[i], list[j]] = [list[j], list[i]];
+  saveCoach(); renderCoach();
+}
+/* Renaming keeps the lineup and past matches in step, so records still match. */
+function renamePlayer(level, from, to) {
+  const f = from.trim().toLowerCase(); let n = 0;
+  LINE_KEYS.forEach(k => coach.lineup[level][k].forEach((v, i) => { if (v.trim().toLowerCase() === f) { coach.lineup[level][k][i] = to; n++; } }));
+  dualsFor(level).forEach(d => LINE_KEYS.forEach(k => d.lines[k].tl.forEach((v, i) => { if (v.trim().toLowerCase() === f) { d.lines[k].tl[i] = to; n++; } })));
+  return n;
+}
+function savePlayer(id) {
+  const list = coach.roster[coach.level], p = list.find(x => x.id === id); if (!p) return;
+  const name = $('#rp-e-name').value.trim().slice(0, 40);
+  if (!name) { toast('A player needs a name.'); return; }
+  if (list.some(x => x.id !== id && x.name.toLowerCase() === name.toLowerCase())) { toast(`${name} is already on the roster.`); return; }
+  const old = p.name;
+  p.name = name; p.grade = GRADES.includes($('#rp-e-grade').value) ? $('#rp-e-grade').value : ''; p.notes = $('#rp-e-notes').value.trim().slice(0, 80);
+  const n = old !== name ? renamePlayer(coach.level, old, name) : 0;
+  rUI.editId = null; saveCoach(); renderCoach();
+  toast(n ? `Saved. Updated ${n} place${n === 1 ? '' : 's'} that used the old name.` : 'Player saved');
+}
+async function deletePlayer(id) {
+  const list = coach.roster[coach.level], p = list.find(x => x.id === id); if (!p) return;
+  const ok = await askConfirm({ title: 'Remove player?', message: `${p.name} will be removed from the ${LEVEL_NAME[coach.level]} roster. Past match results keep their name.`, confirmLabel: 'Remove', danger: true });
+  if (!ok) return;
+  coach.roster[coach.level] = list.filter(x => x.id !== id);
+  rUI.editId = null; saveCoach(); renderCoach();
+}
+
+Object.assign(ACTIONS, {
+  'set-level': el => { coach.level = el.dataset.level === 'jv' ? 'jv' : 'varsity'; mUI.creating = false; mUI.form = null; rUI.editId = null; saveCoach(); renderCoach(); },
+  'matches-sub': el => { mUI.sub = COACH_SUBS.includes(el.dataset.sub) ? el.dataset.sub : 'matches'; mUI.creating = false; rUI.editId = null; renderCoach(); },
+  'new-dual': () => startNewDual(),
+  'cancel-new': () => { mUI.creating = false; mUI.form = null; renderCoach(); },
+  'form-region': el => { if (!mUI.form) return; mUI.form.region = el.dataset.region === '1'; mUI.form.touched = true; paintFormRegion(); },
+  'create-dual': () => createDual(),
+  'open-dual': el => { mUI.dualId = el.dataset.id; renderCoach(); $('#main').scrollTop = 0; },
+  'back': () => { mUI.dualId = null; renderCoach(); $('#main').scrollTop = 0; },
+  'delete-dual': () => deleteDual(),
+  'dual-region': el => { const d = findDual(mUI.dualId); if (!d) return; d.isRegion = el.dataset.region === '1'; saveCoach(); paintDual('d-region', 'region', el.dataset.region); },
+  'dual-level': el => {
+    const d = findDual(mUI.dualId); if (!d) return;
+    d.level = el.dataset.level === 'jv' ? 'jv' : 'varsity'; coach.level = d.level;
+    saveCoach(); renderCoach(); toast(`Moved to ${LEVEL_NAME[d.level]}`);
+  },
+  'set-result': el => setLineResult(el.dataset.line, el.dataset.res),
+  'team-add': () => addTeam(),
+  'team-remove': el => removeTeam(el.dataset.id),
+  'export-season': () => exportSeason(),
+  'roster-add': () => addPlayer(),
+  'roster-up': el => movePlayer(el.dataset.id, -1),
+  'roster-down': el => movePlayer(el.dataset.id, 1),
+  'roster-edit': el => { rUI.editId = el.dataset.id; renderCoach(); const i = $('#rp-e-name'); if (i) i.focus(); },
+  'roster-cancel': () => { rUI.editId = null; renderCoach(); },
+  'roster-save': el => savePlayer(el.dataset.id),
+  'roster-delete': el => deletePlayer(el.dataset.id)
+});
+
+/* ----- Typing ----- */
+function handleCoachInput(el) {
+  const c = el.dataset.c, v = el.value;
+  if (c === 'form-opp') {
+    const f = mUI.form; if (!f) return;
+    f.opp = v;
+    if (!f.touched) f.region = !!teamByName(v); else if (teamByName(v)) f.region = true;
+    paintFormRegion(); return;
+  }
+  if (c === 'form-date') { if (mUI.form) mUI.form.date = v; return; }
+  if (c === 'team-name') return;
+  if (c === 'lineup') {
+    const k = el.dataset.key, i = +el.dataset.i, lu = coach.lineup[coach.level];
+    if (lu[k]) { lu[k][i] = v.slice(0, 28); scheduleSave(); }
+    return;
+  }
+  const d = mUI.dualId ? findDual(mUI.dualId) : null; if (!d) return;
+  if (c === 'dual-opp') {
+    d.opponent = v.slice(0, 40);
+    const t = teamByName(d.opponent);
+    d.teamId = t ? t.id : null;
+    if (t && !d.isRegion) { d.isRegion = true; paintDual('d-region', 'region', '1'); }
+    document.querySelectorAll('.js-opp').forEach(n => { n.textContent = d.opponent.trim() || 'Opponent'; });
+    scheduleSave(); return;
+  }
+  if (c === 'dual-date') { if (/^\d{4}-\d{2}-\d{2}$/.test(v)) { d.date = v; scheduleSave(); } return; }
+  if (c === 'dual-notes') { d.notes = v.slice(0, 600); scheduleSave(); return; }
+  const k = el.dataset.line, line = k && d.lines[k]; if (!line) return;
+  if (c === 'line-score') { line.score = v.slice(0, 40); scheduleSave(); return; }
+  if (c === 'line-name') { line[el.dataset.side][+el.dataset.i] = v.slice(0, 28); scheduleSave(); }
+}
+
+
+/* =====================================================================
+   Tutorials: a short spotlight tour for each tab. Skippable, and replayable from Settings.
+   ===================================================================== */
+const KEY_TUT = 'tlh_tutorials_v1';
+const TOUR_ORDER = ['tracker', 'momentum', 'stats', 'coach', 'setup'];
+const TOURS = {
+  tracker: {
+    name: 'Tracker', desc: 'How to chart a match point by point.',
+    steps: [
+      { title: 'Charting a match', text: 'This quick tour shows how to chart a match one point at a time. It takes about a minute. Tap Skip any time, and replay it later in Settings.' },
+      { target: '#scoreboard', title: 'The scoreboard', text: 'Sets, games and points update on their own. The tennis ball shows who is serving. You can add player names in Settings.' },
+      { target: '#rec-picker', title: 'Count the shots', text: 'Count every shot in the rally. The serve is shot 1. Tap a number, or use + and \u2212. Tap 0 for a double fault. Tap 1 when the serve is not returned, like a service ace or a return error.' },
+      { target: '#rec-rule', title: 'Who wins the point', text: 'An odd number of shots means the server hit the last ball, so the server wins. An even number means the returner hit it, so the returner wins. This message explains it every time.' },
+      { target: '#rec-winners', title: 'Record the point', text: 'Only the player who can win with that shot count is unlocked. Tap their name to record the point. The other button stays locked, so a point can\u2019t be entered the wrong way.' },
+      { target: '#rec-actions', title: 'Made a mistake?', text: 'Undo last removes the last point. Not sure logs a point you couldn\u2019t count. It doesn\u2019t change the score, and you can fix it later in the point log.' },
+      { target: '#log-card', title: 'Point log', text: 'Every point is listed with the score after it. Tap Edit to change a point\u2019s shot count or delete it. The score and stats are recalculated.' },
+      { target: '#match-actions', title: 'Finish up', text: 'End match and save locks the match and saves it. Export stats makes a CSV. Reset starts a fresh match with the same players.' },
+      { target: '#btn-save', title: 'Saving', text: 'Your match saves itself on this device after every point. Tap Save to keep a copy in Settings under Saved matches.' },
+      { title: 'You\u2019re ready', text: 'Chart a point to see it in action. Momentum shows how the match is going, and Stats shows the numbers. Replay this tour any time in Settings.' }
+    ]
+  },
+  momentum: {
+    name: 'Momentum', desc: 'Read the match momentum chart.',
+    steps: [
+      { target: '#chart', title: 'Match momentum', text: 'The line is the running point difference. When it rises above zero the first player (gold) is ahead. When it drops below zero the second player (blue) is ahead.' },
+      { target: '#chart', title: 'Inspect any point', text: 'Tap or drag along the line to see a single point: who served, how long the rally was and the score afterwards.' },
+      { title: 'Markers', text: 'Larger rings mark points that won a game. Orange dots are double faults, and hollow dots are points you marked Not sure.' }
+    ]
+  },
+  stats: {
+    name: 'Stats', desc: 'Understand the stats for one match.',
+    steps: [
+      { target: '#stats-body > .card:nth-child(1)', title: 'Match summary', text: 'Points played, the average rally length and the longest rally for this match.' },
+      { target: '#stats-body > .card:nth-child(2)', title: 'Match stats', text: 'Points won, games won and double faults for each player, then points won by rally length: short (0\u20134 shots), medium (5\u20137) and long (8+).' },
+      { target: '#stats-body .btn-grid', title: 'Export and save', text: 'Export stats downloads a CSV file of this match\u2019s stats. Save match keeps it in Settings under Saved matches.' }
+    ]
+  },
+  coach: {
+    name: 'Coaching', desc: 'Matches, records, region teams, roster and lineup.',
+    steps: [
+      { title: 'Coaching', text: 'Keep your Varsity and JV dual matches here. Each match has five singles lines and 2 Doubles. Every line won is 1 point for that school, and the first team to 4 points wins. If it\u2019s 3\u20133, 1 Doubles decides the match.', before: resetCoachHome },
+      { target: '#coach .level-seg', title: 'Varsity and JV', text: 'Switch between Varsity and JV. Each level has its own matches, records, roster and lineup.', before: resetCoachHome },
+      { target: '#coach .record-grid', title: 'Your records', text: 'Overall, region and non-region records update on their own once a match is decided. The dots show your last five results.', before: resetCoachHome },
+      { target: '#coach .subnav', title: 'Four sections', text: 'Matches lists your duals. Region is where you add the schools in your region. Roster keeps your players, and Lineup sets your usual players for each line.', before: resetCoachHome },
+      { target: '[data-action="new-dual"]', title: 'Start a match', text: 'Tap New match, type the school and pick the date. Schools from your region list are marked as region matches automatically.', before: resetCoachHome },
+      { title: 'Enter results', text: 'Open a match to see its lines. Tap TL Hanna won or Opponent won for each line and type the score, like 6-2, 6-4. The team score updates on its own.' },
+      { target: '#coach .roster-add', title: 'Add players', text: 'In Roster, type a name, pick a grade if you like, and tap Add. Use the arrows to move players up or down your ladder, and the pencil to edit or remove one.', before: showRoster },
+      { target: '#coach .lu-row', title: 'Set your lineup', text: 'In Lineup, choose your usual players for #1\u2013#5 Singles and the doubles lines. New matches start with those names.', before: showLineup },
+      { title: 'Export your stats', text: 'Tap Export stats (CSV) to download a file with your records, each player\u2019s line record and every match result.', before: resetCoachHome }
+    ]
+  },
+  setup: {
+    name: 'Settings', desc: 'Players, formats, saved matches and tutorials.',
+    steps: [
+      { target: '#card-players', title: 'Players', text: 'Type the names that show on the scoreboard, in stats and in exports.' },
+      { target: '#card-match', title: 'Match setup', text: 'Choose singles or doubles, the match format and who serves first. Changing the mode or format clears the points recorded so far.' },
+      { target: '#card-saved', title: 'Saved matches', text: 'Matches you save show up here. Open one again or export it.' },
+      { target: '#tut-list', title: 'Tutorials', text: 'Replay any tutorial from here, or turn off the automatic tutorials.' }
+    ]
+  }
+};
+
+let tut = { auto: true, seen: {} };
+let tour = null;
+function loadTut() {
+  try {
+    const o = JSON.parse(lsGet(KEY_TUT) || 'null');
+    if (o && typeof o === 'object') {
+      tut.auto = o.auto !== false;
+      TOUR_ORDER.forEach(k => { if (o.seen && o.seen[k]) tut.seen[k] = true; });
+    } else {
+      const v2 = JSON.parse(lsGet('tlh_tutorials_v2') || 'null'); // written by the previous version
+      if (v2 && typeof v2 === 'object') {
+        tut.auto = v2.auto !== false;
+        TOUR_ORDER.forEach(k => { if (v2.seen && (v2.seen[k] || (k === 'coach' && v2.seen.matches))) tut.seen[k] = true; });
+      }
+    }
+  } catch (e) { /* first run */ }
+}
+const saveTut = () => { lsSet(KEY_TUT, JSON.stringify(tut)); };
+
+function tourTarget(step) {
+  if (!step.target) return null;
+  const el = document.querySelector(step.target);
+  if (!el) return null;
+  const r = el.getBoundingClientRect();
+  return r.width || r.height ? el : null;
+}
+
+/* Puts the tour card and the highlighted element in separate parts of the screen. */
+function positionTour() {
+  if (!tour) return;
+  const spot = $('#tour-spot'), card = $('#tour-card'), el = tour.el, main = $('#main');
+  if (!el) { spot.hidden = true; card.dataset.pos = 'center'; return; }
+  const vh = window.innerHeight;
+  const navR = $('.tab-bar').getBoundingClientRect(), navAtBottom = navR.top > vh / 2; // bottom bar on phones, top bar on wide screens
+  const headerB = navAtBottom ? $('.app-header').getBoundingClientRect().bottom : navR.bottom, tabT = navAtBottom ? navR.top : vh;
+  const scrolls = main.contains(el), pad = 8;
+  const zoneFor = pos => {
+    card.dataset.pos = pos;
+    const rc = card.getBoundingClientRect();
+    return pos === 'bottom' ? { top: headerB + 10, bottom: rc.top - 12 } : { top: rc.bottom + 12, bottom: tabT - 10 };
+  };
+  const tryPlace = pos => {
+    const zone = zoneFor(pos), rc = card.getBoundingClientRect();
+    let r = el.getBoundingClientRect();
+    if (scrolls) {
+      const zh = Math.max(40, zone.bottom - zone.top);
+      main.scrollTop += r.height <= zh ? (r.top + r.height / 2) - (zone.top + zh / 2) : r.top - zone.top;
+      r = el.getBoundingClientRect();
+      if (r.height > zh) { // taller than the free space: spotlight the part that fits, never behind the card
+        const top = Math.max(r.top, zone.top), bottom = Math.min(r.bottom, zone.top + zh);
+        r = { left: r.left, right: r.right, width: r.width, top, bottom, height: bottom - top };
+      }
+    }
+    const overlap = !(r.right <= rc.left || r.left >= rc.right || r.bottom + pad <= rc.top || r.top - pad >= rc.bottom);
+    return { pos, r, overlap };
+  };
+  const r0 = el.getBoundingClientRect();
+  let first = r0.top + r0.height / 2 > vh / 2 ? 'top' : 'bottom';
+  if (scrolls && r0.height > (tabT - headerB) * 0.4) { // a tall target: give it the larger side
+    const zt = zoneFor('top'), zb = zoneFor('bottom');
+    first = (zt.bottom - zt.top) >= (zb.bottom - zb.top) ? 'top' : 'bottom';
+  }
+  const second = first === 'top' ? 'bottom' : 'top';
+  let res = tryPlace(first);
+  if (res.overlap) { const alt = tryPlace(second); res = alt.overlap ? tryPlace(first) : alt; }
+  const r = res.r;
+  spot.hidden = false;
+  spot.style.left = `${r.left - pad}px`; spot.style.top = `${r.top - pad}px`;
+  spot.style.width = `${r.width + pad * 2}px`; spot.style.height = `${r.height + pad * 2}px`;
+}
+
+function showTourStep(i) {
+  const def = TOURS[tour.name], step = def.steps[i];
+  tour.i = i;
+  if (step.before) step.before();
+  const el = tourTarget(step);
+  tour.el = el;
+  $('#tour-count').textContent = `Step ${i + 1} of ${def.steps.length}`;
+  $('#tour-title').textContent = step.title;
+  $('#tour-text').textContent = step.text;
+  $('#tour-dots').innerHTML = def.steps.map((_, k) => `<i class="${k === i ? 'on' : ''}"></i>`).join('');
+  $('#tour-back').hidden = i === 0;
+  $('#tour-next').textContent = i === def.steps.length - 1 ? 'Done' : 'Next';
+  $('#tour-skip').hidden = i === def.steps.length - 1;
+  const root = $('#tour');
+  root.hidden = false; root.classList.toggle('no-spot', !el);
+  if (el) el.scrollIntoView({ block: 'center', inline: 'nearest' });
+  positionTour();
+  requestAnimationFrame(positionTour);
+  setTimeout(positionTour, 150);
+  $('#tour-next').focus({ preventScroll: true });
+}
+
+function startTour(name, opts = {}) {
+  if (tour || !TOURS[name]) return;
+  tour = { name, i: 0, el: null, from: opts.from || null, prevFocus: document.activeElement };
+  document.body.classList.add('touring');
+  if (activeTab !== name) switchTab(name);
+  showTourStep(0);
+}
+function endTour(markSeen = true) {
+  if (!tour) return;
+  if (markSeen) { tut.seen[tour.name] = true; saveTut(); }
+  const from = tour.from, pf = tour.prevFocus;
+  tour = null;
+  document.body.classList.remove('touring');
+  $('#tour').hidden = true;
+  if (from && from !== activeTab) switchTab(from);
+  renderTutorialsCard();
+  if (pf && pf.focus) { try { pf.focus({ preventScroll: true }); } catch (e) { /* ignore */ } }
+}
+function tourNext() {
+  if (!tour) return;
+  if (tour.i >= TOURS[tour.name].steps.length - 1) endTour(true); else showTourStep(tour.i + 1);
+}
+function tourBack() { if (tour && tour.i > 0) showTourStep(tour.i - 1); }
+
+/* Runs the first time a person taps into a tab. */
+function maybeAutoTour(name) {
+  if (!tut.auto || tut.seen[name] || tour || dialogOpen || edit || !TOURS[name]) return;
+  setTimeout(() => { if (!tour && !dialogOpen && !edit && activeTab === name && !tut.seen[name]) startTour(name); }, 350);
+}
+
+function renderTutorialsCard() {
+  const list = $('#tut-list'); if (!list) return;
+  list.innerHTML = TOUR_ORDER.map(k => `<div class="tut-row">
+    <div class="tut-main"><div class="tut-name">${esc(TOURS[k].name)}${tut.seen[k] ? '' : ' <span class="badge">New</span>'}</div><div class="tut-desc">${esc(TOURS[k].desc)}</div></div>
+    <button type="button" class="btn btn-secondary btn-sm" data-action="tour-start" data-tour-name="${k}">${tut.seen[k] ? 'Replay' : 'Start'}</button></div>`).join('');
+  const chk = $('#tut-auto'); if (chk) chk.checked = tut.auto;
+}
+
+$('#tour').addEventListener('click', ev => {
+  const b = ev.target.closest('[data-tour]'); if (!b) return;
+  if (b.dataset.tour === 'next') tourNext(); else if (b.dataset.tour === 'back') tourBack(); else if (b.dataset.tour === 'skip') endTour(true);
+});
+document.addEventListener('keydown', ev => {
+  if (!tour) return;
+  if (ev.key === 'Escape') { ev.preventDefault(); ev.stopPropagation(); endTour(true); }
+  else if (ev.key === 'ArrowRight') { ev.preventDefault(); tourNext(); }
+  else if (ev.key === 'ArrowLeft') { ev.preventDefault(); tourBack(); }
+  else if (ev.key === 'Tab') { // keep focus inside the tour card
+    const btns = [...document.querySelectorAll('#tour-card button')].filter(b => !b.hidden);
+    if (!btns.length) return;
+    ev.preventDefault();
+    const i = btns.indexOf(document.activeElement);
+    btns[(i + (ev.shiftKey ? -1 : 1) + btns.length) % btns.length].focus();
+  }
+}, true);
+window.addEventListener('resize', () => { if (tour) { positionTour(); } });
+window.addEventListener('orientationchange', () => { if (tour) setTimeout(positionTour, 200); });
+document.addEventListener('change', ev => {
+  if (ev.target && ev.target.id === 'tut-auto') { tut.auto = ev.target.checked; saveTut(); toast(tut.auto ? 'Tutorials will show the first time you open each tab.' : 'Automatic tutorials are off.'); }
+});
+
+Object.assign(ACTIONS, {
+  'tour-start': el => startTour(el.dataset.tourName, { from: activeTab }),
+  'tour-reset': () => { tut.seen = {}; saveTut(); renderTutorialsCard(); toast('Tutorials will show again as you open each tab.'); }
+});
+
+document.addEventListener('click', ev => {
+  const t = ev.target;
+  const chip = t.closest('.shot-chip');
+  if (chip) { setShots(chip.dataset.scope, +chip.dataset.shots); return; }
+  const stepBtn = t.closest('[data-step]');
+  if (stepBtn) { const sc = stepBtn.dataset.scope; const cur = getShots(sc); setShots(sc, (cur === null ? 0 : cur) + (+stepBtn.dataset.step)); return; }
+  const tab = t.closest('.tab');
+  if (tab) { switchTab(tab.dataset.tab); maybeAutoTour(tab.dataset.tab); return; }
+  const m = t.closest('[data-set-mode]'); if (m) { setMode(m.dataset.setMode); return; }
+  const f = t.closest('[data-set-format]'); if (f) { setFormat(f.dataset.setFormat); return; }
+  const sv = t.closest('[data-server]'); if (sv) { setFirstServer(sv.dataset.server); return; }
+  const a = t.closest('[data-action]');
+  if (a && ACTIONS[a.dataset.action] && !a.disabled) ACTIONS[a.dataset.action](a);
+});
+
+document.addEventListener('input', ev => {
+  const inp = ev.target.closest && ev.target.closest('.shots-input');
+  if (inp) {
+    const raw = inp.value.trim();
+    const parsed = parseInt(raw, 10);
+    const v = raw === '' || isNaN(parsed) ? null : clamp(parsed, 0, 99);
+    if (v !== null && String(v) !== raw) inp.value = v;
+    setShots(inp.dataset.scope, v);
+    return;
+  }
+  const cf = ev.target.closest && ev.target.closest('[data-c]');
+  if (cf) { handleCoachInput(cf); return; }
+  const nm = ev.target.closest && ev.target.closest('[data-name]');
+  if (nm) {
+    match.names[nm.dataset.name] = nm.value;
+    derive();
+    renderScoreboard(); renderRecord(); renderLog(); renderStats(); renderSetup(); renderLibrary();
+    if (activeTab === 'momentum') renderMomentum();
+    schedulePersist();
+  }
+});
+document.addEventListener('focusout', ev => {
+  if (ev.target.closest && ev.target.closest('.shots-input')) { renderRecord(); if (edit) renderEdit(); }
+});
+document.addEventListener('keydown', ev => {
+  if (ev.key === 'Escape' && edit && !dialogOpen) closeEdit();
+  if (ev.key === 'Enter' && ev.target && ev.target.id === 'team-input') { ev.preventDefault(); addTeam(); }
+  if (ev.key === 'Enter' && ev.target && ev.target.id === 'rp-new-name') { ev.preventDefault(); addPlayer(); }
+});
+$('#edit-modal').addEventListener('click', ev => { if (ev.target.id === 'edit-modal') closeEdit(); });
+
+let resizeTimer = null;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => { if (activeTab === 'momentum') renderMomentum(); }, 120);
+});
+const flush = () => { if (persistTimer) persistSession(); if (coachTimer) saveCoach(); };
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') flush(); });
+window.addEventListener('pagehide', flush);
+
+/* =====================================================================
+   Start
+   ===================================================================== */
+(function init() {
+  $('#rec-picker').innerHTML = shotPickerHTML('rec');
+  library = loadLibrary();
+  coach = loadCoach();
+  loadTut();
+  renderDatalists();
+  if (coachLoadFailed) toast('Your saved coaching data could not be read. A copy was kept safe on this device.');
+  document.body.dataset.tab = 'tracker';
+  const restored = loadSession();
+  if (restored) match = restored;
+  syncNameInputs();
+  derive();
+  // if a restored match somehow finished but isn't locked, lock it quietly
+  if (view.s.over && !match.locked) match.locked = true;
+  renderAll();
+  if (navigator.storage && navigator.storage.persist) { try { navigator.storage.persist(); } catch (e) { /* ignore */ } }
+  if (restored && restored.points.length) toast('Restored your match in progress');
+  setTimeout(() => maybeAutoTour('tracker'), 800);
+  // If storage was slow to answer, look again and bring anything that shows up into the app.
+  const lateCheck = () => {
+    if (adoptLateCoach()) { renderDatalists(); renderCoach(); if (hasCoachData()) saveCoach(); }
+    if (libraryStartedEmpty && adoptLateLibrary()) { renderLibrary(); renderHeader(); }
+    if (sessionStartedEmpty && !match.points.length) {
+      const late = loadSession();
+      if (late && late.points.length) { sessionStartedEmpty = false; match = late; syncNameInputs(); derive(); renderAll(); toast('Restored your match in progress'); }
+    }
+  };
+  setTimeout(lateCheck, 300); setTimeout(lateCheck, 1500);
+})();
+</script>
+</body>
+</html>
